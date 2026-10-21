@@ -142,15 +142,30 @@ function ActivityHeatmap({ days, total, activeDays, currentStreak, longestStreak
 }
 
 function SolvedTopicChart({ topics, solvedCount }) {
+  const [hoveredTopic, setHoveredTopic] = useState(null);
   const visibleTopics = topics;
   const topicColors = ["#facc15", "#f59e0b", "#f97316", "#ef4444", "#e11d48", "#fb7185", "#dc2626", "#ea580c", "#fbbf24", "#be123c", "#fb923c", "#ca8a04"];
   const totalTopicSolves = visibleTopics.reduce((total, topic) => total + topic.solved, 0);
-  const chartStops = visibleTopics.map((topic, index) => {
-    const offset = visibleTopics.slice(0, index).reduce((total, item) => total + item.solved, 0);
-    const start = totalTopicSolves ? (offset / totalTopicSolves) * 100 : 0;
-    const end = totalTopicSolves ? ((offset + topic.solved) / totalTopicSolves) * 100 : 0;
-    return `${topicColors[index % topicColors.length]} ${start}% ${end}%`;
-  }).join(", ");
+  const radius = 44;
+  const circumference = 2 * Math.PI * radius;
+
+  function handlePieMove(event) {
+    if (!totalTopicSolves) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX - (rect.left + rect.width / 2);
+    const y = event.clientY - (rect.top + rect.height / 2);
+    const angle = (Math.atan2(y, x) + Math.PI / 2 + Math.PI * 2) % (Math.PI * 2);
+    const ratio = angle / (Math.PI * 2);
+    let cursor = 0;
+    const index = visibleTopics.findIndex((topic) => {
+      const next = cursor + topic.solved / totalTopicSolves;
+      const matches = ratio >= cursor && ratio < next;
+      cursor = next;
+      return matches;
+    });
+    const topic = visibleTopics[index];
+    if (topic) setHoveredTopic({ index, label: topic.label, solved: topic.solved, percentage: ((topic.solved / totalTopicSolves) * 100).toFixed(1) });
+  }
 
   return (
     <section className="profile-topic-chart rounded-md border border-slate-200 bg-white p-3 shadow-[0_2px_8px_rgba(20,55,40,.04)] sm:p-4" aria-labelledby="solved-topic-heading">
@@ -163,15 +178,27 @@ function SolvedTopicChart({ topics, solvedCount }) {
       </div>
       {visibleTopics.length ? (
         <div className="mt-4 grid items-center gap-4 sm:grid-cols-[minmax(110px,.8fr)_minmax(0,1.2fr)]">
-          <div className="profile-topic-chart__pie mx-auto grid h-28 w-28 place-items-center rounded-full" style={{ background: `conic-gradient(${chartStops})` }} role="img" aria-label={`Solved questions by topic: ${visibleTopics.map((topic) => `${topic.label} ${topic.solved}`).join(", ")}`}>
-            <div className="grid h-[4.7rem] w-[4.7rem] place-items-center rounded-full bg-white text-center">
+          <div className="profile-topic-chart__pie mx-auto grid h-28 w-28 place-items-center rounded-full" role="img" aria-label={`Solved questions by topic: ${visibleTopics.map((topic) => `${topic.label} ${topic.solved}`).join(", ")}`}>
+            <svg viewBox="0 0 100 100" aria-hidden="true" onMouseMove={handlePieMove} onMouseLeave={() => setHoveredTopic(null)}>
+              <circle cx="50" cy="50" r={radius} fill="none" stroke="#edf0ec" strokeWidth="14" />
+              <g transform="rotate(-90 50 50)">
+                {visibleTopics.map((topic, index) => {
+                  const length = totalTopicSolves ? (topic.solved / totalTopicSolves) * circumference : 0;
+                  const offset = visibleTopics.slice(0, index).reduce((total, item) => total + (totalTopicSolves ? (item.solved / totalTopicSolves) * circumference : 0), 0);
+                  const percentage = totalTopicSolves ? ((topic.solved / totalTopicSolves) * 100).toFixed(1) : "0.0";
+                  return <circle className={hoveredTopic?.index === index ? "is-hovered" : ""} key={topic.label} cx="50" cy="50" r={radius} fill="none" stroke={topicColors[index % topicColors.length]} strokeWidth="14" strokeDasharray={`${length} ${circumference - length}`} strokeDashoffset={-offset} />;
+                })}
+              </g>
+            </svg>
+            {hoveredTopic && <div className="profile-topic-chart__tooltip" role="status"><strong>{hoveredTopic.label}</strong><span>{hoveredTopic.solved} solved · {hoveredTopic.percentage}%</span></div>}
+            <div className="flex h-[4.7rem] w-[4.7rem] flex-col items-center justify-center gap-1 rounded-full bg-white text-center">
               <strong className="text-lg leading-none text-slate-900">{solvedCount}</strong>
               <span className="text-[9px] text-slate-500">solved</span>
             </div>
           </div>
           <div className="profile-topic-chart__legend grid gap-2">
             {visibleTopics.map((topic, index) => (
-              <div className="profile-topic-chart__legend-item flex min-w-0 items-center gap-2 text-[10px]" key={topic.label} title={`${topic.label}: ${topic.solved} solved`}>
+              <div className="profile-topic-chart__legend-item flex min-w-0 items-center gap-2 text-[10px]" key={topic.label} title={`${topic.label}: ${topic.solved} solved (${totalTopicSolves ? ((topic.solved / totalTopicSolves) * 100).toFixed(1) : "0.0"}%)`} data-tooltip={`${topic.label}: ${totalTopicSolves ? ((topic.solved / totalTopicSolves) * 100).toFixed(1) : "0.0"}%`} aria-label={`${topic.label}: ${topic.solved} solved, ${totalTopicSolves ? ((topic.solved / totalTopicSolves) * 100).toFixed(1) : "0.0"}%`}>
                 <span className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: topicColors[index % topicColors.length] }} aria-hidden="true" />
                 <span className="min-w-0 flex-1 truncate text-slate-600">{topic.label}</span>
                 <strong className="shrink-0 text-slate-800">{topic.solved}</strong>

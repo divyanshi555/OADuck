@@ -7,6 +7,7 @@ import {
   normalizeResult,
   normalizeStdin,
 } from "../../../../lib/judge0";
+import { isSupportedLanguage } from "../../../../lib/languages";
 
 function normalizeOutput(value) {
   return String(value ?? "")
@@ -28,9 +29,9 @@ export async function POST(request) {
   try {
     const body = await request.json();
     const problemId = body.problemId || body.questionId;
-    if (!problemId || body.language !== "cpp" || typeof body.code !== "string")
+    if (!problemId || !isSupportedLanguage(body.language) || typeof body.code !== "string")
       return Response.json(
-        { error: "Problem, C++, and code are required." },
+        { error: "Problem, a supported language, and code are required." },
         { status: 400 },
       );
     if (body.code.length > 50000)
@@ -106,7 +107,7 @@ export async function POST(request) {
     for (const [index, testCase] of testCases.entries()) {
       const result = normalizeResult(
         await executeCode({
-          language: "cpp",
+          language: body.language,
           sourceCode: body.code,
           stdin: normalizeStdin(testCase.input),
           timeoutSeconds: 2,
@@ -142,7 +143,7 @@ export async function POST(request) {
         sessionId: practiceSession.id,
         userId: user.id,
         questionId: question.id,
-        language: "cpp",
+        language: body.language,
         sourceCode: body.code,
         status: verdict,
         runtimeMs: finalResult?.time
@@ -155,19 +156,20 @@ export async function POST(request) {
         actualOutput: finalResult?.stdout || null,
         errorMessage: finalResult?.stderr || finalResult?.compileOutput || null,
       };
+    let savedSubmission;
     if (body.assessmentId) {
       const saved = await prisma.$transaction(async (tx) => {
         await tx.$queryRaw`SELECT id FROM "session" WHERE id = ${practiceSession.id}::uuid FOR UPDATE`;
         const latestAssessment = await tx.session.findUnique({ where: { id: practiceSession.id }, select: { terminationReason: true, completedAt: true } });
         if (latestAssessment?.terminationReason) return "terminated";
         if (latestAssessment?.completedAt) return "completed";
-        await tx.submission.create({ data: submissionData });
-        return true;
+        return tx.submission.create({ data: submissionData, select: { id: true } });
       });
       if (saved === "terminated") return Response.json({ error: "Assessment Terminated. Submissions are disabled." }, { status: 403 });
       if (saved === "completed") return Response.json({ error: "This assessment is already completed." }, { status: 403 });
+      savedSubmission = saved;
     } else {
-      await prisma.submission.create({ data: submissionData });
+      savedSubmission = await prisma.submission.create({ data: submissionData, select: { id: true } });
     }
     const attempts = await prisma.submission.count({
       where: { userId: user.id, questionId: question.id },
@@ -175,6 +177,7 @@ export async function POST(request) {
 
     return Response.json({
       success: true,
+      submissionId: savedSubmission.id,
       status: verdict,
       questionNumber: question.questionNumber,
       questionTitle: question.title,

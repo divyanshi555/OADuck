@@ -2,6 +2,7 @@ export const runtime = "nodejs";
 
 import { auth } from "../../../auth";
 import prisma from "../../../lib/prisma";
+import { languageValue } from "../../../lib/languages";
 
 function validateQuestionPayload(body) {
   if (!body.title?.trim() || !body.difficulty?.trim()) {
@@ -12,6 +13,9 @@ function validateQuestionPayload(body) {
   }
   if (Array.isArray(body.testCases) && body.testCases.some((testCase) => !String(testCase?.input || "").trim() || !String(testCase?.expectedOutput || "").trim())) {
     return "Every test case needs both input and output";
+  }
+  if (Array.isArray(body.optimalSolutions) && body.optimalSolutions.some((solution) => solution?.language?.trim() && solution?.code?.trim() && !languageValue(solution.language))) {
+    return "Reference solutions must use C++, Java, or Python";
   }
   return null;
 }

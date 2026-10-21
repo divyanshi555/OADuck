@@ -32,7 +32,7 @@ function relativeTime(value) {
 }
 
 function languageName(value) {
-  const names = { cpp: "C++", python: "Python", python3: "Python 3", java: "Java", javascript: "JavaScript" };
+  const names = { cpp: "C++", python: "Python", python3: "Python", java: "Java" };
   return names[value?.toLowerCase()] || value || "Unknown";
 }
 

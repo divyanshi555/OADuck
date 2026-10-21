@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SUPPORTED_LANGUAGES } from "../../../../lib/languages";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import AppHeader from "../../../components/AppHeader";
@@ -27,7 +28,7 @@ export default function NewQuestionPage() {
   const [hints, setHints] = useState("");
 
   const [optimalSolutions, setOptimalSolutions] = useState([
-    { language: "JavaScript", code: "" },
+    { language: "Python", code: "" },
   ]);
 
   const [isSaving, setIsSaving] = useState(false);
@@ -272,11 +273,7 @@ export default function NewQuestionPage() {
                           )
                         }
                       >
-                        <option value="JavaScript">JavaScript</option>
-                        <option value="TypeScript">TypeScript</option>
-                        <option value="Python">Python</option>
-                        <option value="Java">Java</option>
-                        <option value="C++">C++</option>
+                        {SUPPORTED_LANGUAGES.map(({ label }) => <option value={label} key={label}>{label}</option>)}
                       </select>
                     </label>
                     <label className={fieldClass}>
@@ -305,7 +302,7 @@ export default function NewQuestionPage() {
                   onClick={() =>
                     setOptimalSolutions((current) => [
                       ...current,
-                      { language: "JavaScript", code: "" },
+                      { language: "Python", code: "" },
                     ])
                   }
                 >

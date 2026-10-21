@@ -3,6 +3,7 @@ export const runtime = "nodejs";
 import { auth } from "../../../../auth";
 import prisma from "../../../../lib/prisma";
 import { executeCode, normalizeResult, normalizeStdin } from "../../../../lib/judge0";
+import { isSupportedLanguage } from "../../../../lib/languages";
 
 function normalizeOutput(value) {
   return String(value ?? "").replace(/\r\n/g, "\n").trim().split(/\s+/).filter(Boolean).join(" ");
@@ -14,7 +15,7 @@ export async function POST(request) {
 
   try {
     const body = await request.json();
-    if (body.language !== "cpp" || typeof body.code !== "string") return Response.json({ error: "C++ and code are required." }, { status: 400 });
+    if (!isSupportedLanguage(body.language) || typeof body.code !== "string") return Response.json({ error: "A supported language and code are required." }, { status: 400 });
     if (body.code.length > 50000) return Response.json({ error: "Code must be 50,000 characters or fewer." }, { status: 413 });
     if (body.problemId && !body.custom) {
       const question = await prisma.question.findUnique({ where: { id: body.problemId }, select: { testCases: { where: { isSample: true }, select: { input: true, expectedOutput: true }, orderBy: { id: "asc" } } } });
@@ -30,7 +31,7 @@ export async function POST(request) {
       }
       const results = [];
       for (const test of tests) {
-        const result = normalizeResult(await executeCode({ language: "cpp", sourceCode: body.code, stdin: normalizeStdin(test.input), timeoutSeconds: 2 }));
+        const result = normalizeResult(await executeCode({ language: body.language, sourceCode: body.code, stdin: normalizeStdin(test.input), timeoutSeconds: 2 }));
         results.push({
           passed: result.statusId === 3 && normalizeOutput(result.stdout) === normalizeOutput(test.expectedOutput),
           input: test.input,

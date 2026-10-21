@@ -2,6 +2,7 @@ export const runtime = "nodejs";
 
 import { auth } from "../../../../auth";
 import prisma from "../../../../lib/prisma";
+import { languageValue } from "../../../../lib/languages";
 
 export async function GET(request, { params }) {
   try {
@@ -77,6 +78,9 @@ export async function PUT(request, { params }) {
     }
     if (Array.isArray(testCases) && testCases.some((testCase) => !String(testCase?.input || "").trim() || !String(testCase?.expectedOutput || "").trim())) {
       return Response.json({ error: "Every test case needs both input and output" }, { status: 400 });
+    }
+    if (Array.isArray(optimalSolutions) && optimalSolutions.some((solution) => solution?.language?.trim() && solution?.code?.trim() && !languageValue(solution.language))) {
+      return Response.json({ error: "Reference solutions must use C++, Java, or Python" }, { status: 400 });
     }
 
     const existing = await prisma.question.findUnique({ where: { id } });

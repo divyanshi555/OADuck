@@ -11,6 +11,7 @@ import PageLoader from "../../components/PageLoader";
 import AssessmentMonitor from "../../components/AssessmentMonitor";
 import AssessmentRulesGate from "../../components/AssessmentRulesGate";
 import AdminTestModeToggle from "../../components/AdminTestModeToggle";
+import { SUPPORTED_LANGUAGES, languageValue } from "../../../lib/languages";
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
   ssr: false,
@@ -18,25 +19,15 @@ const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
 });
 
 const languages = {
-  javascript: {
-    label: "JavaScript",
-    fileName: "Solution.js",
-    boilerplate: "function solve(input) {\n  // Write your solution here\n}\n",
-  },
-  typescript: {
-    label: "TypeScript",
-    fileName: "Solution.ts",
-    boilerplate: "function solve(input: unknown): unknown {\n  // Write your solution here\n}\n",
-  },
   python: {
     label: "Python",
     fileName: "solution.py",
-    boilerplate: "def solve(input):\n    # Write your solution here\n    pass\n",
+    boilerplate: "import sys\n\ndef solve(input_data):\n    # Write your solution here\n    pass\n\nif __name__ == \"__main__\":\n    solve(sys.stdin.read())\n",
   },
   java: {
     label: "Java",
-    fileName: "Solution.java",
-    boilerplate: "class Solution {\n  public Object solve(Object input) {\n    // Write your solution here\n    return null;\n  }\n}\n",
+    fileName: "Main.java",
+    boilerplate: "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner scanner = new Scanner(System.in);\n    // Read stdin, solve the problem, and write stdout.\n  }\n}\n",
   },
   cpp: {
     label: "C++",
@@ -45,10 +36,10 @@ const languages = {
   },
 };
 
-function starterCodeForQuestion(question) {
+function starterCodeForQuestion(question, language = "cpp") {
   // Learners start with a clean editor. Saved solutions are only revealed
   // through the admin-only action rendered when the API returns them.
-  return languages.cpp.boilerplate;
+  return languages[language].boilerplate;
 }
 
 function SampleResultDetails({ results, hasRun, selectedIndex, onSelect, customAdded, customActive, customResult, onSelectCustom, onAddCustom, stdin, onStdinChange, onRunCustom, isRunning, isSubmitting, submissionVerdict }) {
@@ -104,7 +95,7 @@ export default function SolveQuestionPage() {
   const [customCaseAdded, setCustomCaseAdded] = useState(false);
   const [customCaseActive, setCustomCaseActive] = useState(false);
   const [submissionSummary, setSubmissionSummary] = useState(null);
-  const submittedCodeRef = useRef(null);
+  const submittedSubmissionIdRef = useRef(null);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
   const [activeConsoleTab, setActiveConsoleTab] = useState("tests");
@@ -245,15 +236,22 @@ export default function SolveQuestionPage() {
     setSampleResults([]);
     setSelectedTestIndex(0);
     setIsOutputOpen(true);
+    const submittedLanguage = language;
+    const submittedCode = codeByLanguage[submittedLanguage];
     try {
-      const response = await fetch("/api/submit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ problemId: id, assessmentId: assessment?.id, language, code: codeByLanguage[language] }) });
+      const response = await fetch("/api/submit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ problemId: id, assessmentId: assessment?.id, language: submittedLanguage, code: submittedCode }) });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Unable to submit code.");
       setSubmissionSummary(data);
       setSampleResults(data.testResults || []);
       setSelectedTestIndex(0);
       setCustomCaseActive(false);
-      submittedCodeRef.current = codeByLanguage[language];
+      submittedSubmissionIdRef.current = data.submissionId;
+      try {
+        localStorage.removeItem("oaduck-duck-insight");
+      } catch (storageError) {
+        console.error("Could not clear the previous browser Duck Insight:", storageError);
+      }
       setActiveConsoleTab("tests");
       setOutput(data.terminalOutput || "");
       setEditorMessage(data.status);
@@ -301,7 +299,20 @@ export default function SolveQuestionPage() {
 
   function openDuckInsight() {
     try {
-      sessionStorage.setItem("oaduck-duck-insight", JSON.stringify({ sessionId: assessment.id, code: submittedCodeRef.current || codeByLanguage[language] }));
+      if (!submittedSubmissionIdRef.current) {
+        setEndAssessmentError("Submit your code before opening Duck Insight.");
+        return;
+      }
+      const currentInsight = JSON.parse(localStorage.getItem("oaduck-duck-insight") || "null");
+      const payload = {
+        submissionId: submittedSubmissionIdRef.current,
+        problemId: id,
+      };
+      const isSameSubmission = currentInsight?.submissionId === payload.submissionId
+        && currentInsight?.problemId === payload.problemId;
+      localStorage.setItem("oaduck-duck-insight", JSON.stringify(
+        isSameSubmission ? currentInsight : payload
+      ));
       router.push("/duck-insight");
     } catch {
       setEndAssessmentError("Could not prepare Duck Insight in this browser. Please try again.");
@@ -309,8 +320,8 @@ export default function SolveQuestionPage() {
   }
 
   function resetSolution() {
-    const starter = starterCodeForQuestion(question);
-    setCodeByLanguage((current) => ({ ...current, cpp: starter }));
+    const starter = starterCodeForQuestion(question, language);
+    setCodeByLanguage((current) => ({ ...current, [language]: starter }));
     editorRef.current?.setValue(starter);
     setStdin("");
     setOutput("");
@@ -322,14 +333,13 @@ export default function SolveQuestionPage() {
 
   function toggleSolution() {
     const savedSolution = question?.optimalSolutions?.find((solution) => {
-      const value = String(solution.language || "").toLowerCase();
-      return value === "cpp" || value.includes("c++");
+      return languageValue(solution.language) === language;
     });
     if (!savedSolution) return;
     const nextShow = !showSolution;
-    const nextCode = nextShow ? savedSolution.code : starterCodeForQuestion(question);
+    const nextCode = nextShow ? savedSolution.code : starterCodeForQuestion(question, language);
     setShowSolution(nextShow);
-    setCodeByLanguage((current) => ({ ...current, cpp: nextCode }));
+    setCodeByLanguage((current) => ({ ...current, [language]: nextCode }));
     editorRef.current?.setValue(nextCode);
   }
 
@@ -542,7 +552,7 @@ export default function SolveQuestionPage() {
                 <label className="language-selector language-selector--toolbar" htmlFor="solution-language">
                   <span className="sr-only">Solution language</span>
                   <select id="solution-language" value={language} onChange={(event) => setLanguage(event.target.value)}>
-                    {Object.entries(languages).filter(([key]) => key === "cpp").map(([key, item]) => <option value={key} key={key}>{item.label}</option>)}
+                    {SUPPORTED_LANGUAGES.map(({ value, label }) => <option value={value} key={value}>{label}</option>)}
                   </select>
                 </label>
               </div>

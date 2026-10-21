@@ -7,6 +7,7 @@ import AppHeader from "../../../../components/AppHeader";
 import Sidebar from "../../../../components/Sidebar";
 import PageLoader from "../../../../components/PageLoader";
 import { parseLeetCodeExamples } from "@/lib/leetcodeExamples";
+import { isSupportedLanguage, SUPPORTED_LANGUAGES } from "../../../../../lib/languages";
 
 export default function EditQuestionPage() {
   const router = useRouter();
@@ -67,7 +68,7 @@ export default function EditQuestionPage() {
         setExpectedSC(q.expectedSC || "");
         setHints(q.hints || []);
         setTestCases(q.testCases || []);
-        setOptimalSolutions(q.optimalSolutions || []);
+        setOptimalSolutions((q.optimalSolutions || []).filter((solution) => isSupportedLanguage(solution.language?.toLowerCase()) || SUPPORTED_LANGUAGES.some(({ label }) => label.toLowerCase() === solution.language?.toLowerCase())));
         setQuestionNumber(q.questionNumber);
       } catch (err) {
         setLoadError("Failed to load question.");
@@ -269,12 +270,14 @@ export default function EditQuestionPage() {
               <legend>Optimal solutions</legend>
               {optimalSolutions.map((solution, index) => (
                 <div key={solution.id || index} style={{ display: "grid", gap: "0.5rem" }}>
-                  <input value={solution.language || ""} onChange={(event) => setOptimalSolutions((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, language: event.target.value } : item))} placeholder="Language" />
+                  <select value={solution.language || ""} onChange={(event) => setOptimalSolutions((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, language: event.target.value } : item))}>
+                    {SUPPORTED_LANGUAGES.map(({ label }) => <option value={label} key={label}>{label}</option>)}
+                  </select>
                   <textarea value={solution.code || ""} onChange={(event) => setOptimalSolutions((current) => current.map((item, itemIndex) => itemIndex === index ? { ...item, code: event.target.value } : item))} rows={8} placeholder="Paste the optimal solution code" />
                   <button type="button" onClick={() => setOptimalSolutions((current) => current.filter((_, itemIndex) => itemIndex !== index))} className="inline-flex min-h-9 w-fit items-center justify-center rounded-md border border-[#d7dad3] px-3 py-2 text-xs text-[#b33a32]">Remove solution</button>
                 </div>
               ))}
-              <button type="button" onClick={() => setOptimalSolutions((current) => [...current, { language: "", code: "" }])} className="inline-flex min-h-9 w-fit items-center justify-center rounded-md border border-[#d7dad3] px-3 py-2 text-xs font-semibold text-[#123f36]">+ Add solution</button>
+              <button type="button" onClick={() => setOptimalSolutions((current) => [...current, { language: "Python", code: "" }])} className="inline-flex min-h-9 w-fit items-center justify-center rounded-md border border-[#d7dad3] px-3 py-2 text-xs font-semibold text-[#123f36]">+ Add solution</button>
             </fieldset>
 
             {Array.isArray(examples) && examples.length > 0 && (

@@ -1,6 +1,4 @@
 const LANGUAGE_IDS = {
-  javascript: 63,
-  typescript: 74,
   python: 71,
   java: 62,
   cpp: 54,
@@ -24,18 +22,6 @@ export function getLanguageId(language) {
   return LANGUAGE_IDS[language];
 }
 
-export function prepareSource(language, source) {
-  if (language === "javascript") {
-    return `${source}\n\nconst __input = require("fs").readFileSync(0, "utf8");\nif (typeof solve === "function") { Promise.resolve(solve(__input)).then((value) => { if (value !== undefined) process.stdout.write(typeof value === "string" ? value : JSON.stringify(value)); }).catch((error) => { throw error; }); }`;
-  }
-
-  if (language === "typescript") {
-    return source;
-  }
-
-  return source;
-}
-
 // LeetCode examples often store string inputs as `"abc"`, while stdin-based
 // solutions expect the raw value (`abc`). Keep the displayed testcase intact,
 // but remove one matching pair of wrapping quotes before execution.
@@ -57,7 +43,7 @@ export async function executeCode({ language, sourceCode, stdin = "", timeoutSec
     headers: headers(),
     body: JSON.stringify({
       language_id: languageId,
-      source_code: prepareSource(language, sourceCode),
+      source_code: sourceCode,
       stdin,
       cpu_time_limit: timeoutSeconds,
       wall_time_limit: Math.max(timeoutSeconds + 2, 8),

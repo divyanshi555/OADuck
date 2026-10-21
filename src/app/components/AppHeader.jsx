@@ -39,6 +39,7 @@ export default function AppHeader({ assessmentTimer, persistentRoot = false }) {
   const router = useRouter();
   const pathname = usePathname();
   const isAdmin = session?.user?.role === "ADMIN";
+  const isSolveQuestion = pathname.startsWith("/questions/");
   const persistentNavigation = usePersistentNavigation();
   const [viewRole, setViewRole] = useState(() => typeof window !== "undefined" ? localStorage.getItem("viewRole") || "ADMIN" : "ADMIN");
   const [currentStreak, setCurrentStreak] = useState(0);
@@ -78,10 +79,10 @@ export default function AppHeader({ assessmentTimer, persistentRoot = false }) {
   return (
     <header className={`app-header sticky top-0 z-30 flex h-12 items-center justify-between bg-[#111416] px-4 sm:px-6 md:h-14 md:px-[clamp(24px,6vw,86px)] md:py-0 ${assessmentTimer ? "app-header--assessment" : ""}`}>
       <div className="app-header__brand-group"><BrandLogo dark />{assessmentTimer && <AssessmentTimer startedAt={assessmentTimer.startedAt} durationMinutes={assessmentTimer.durationMinutes} />}</div>
-      {assessmentTimer && <span className="app-header__candidate">{session?.user?.name || session?.user?.email?.split("@")[0] || "Candidate"}</span>}
+      {assessmentTimer && !isSolveQuestion && <span className="app-header__candidate">{session?.user?.name || session?.user?.email?.split("@")[0] || "Candidate"}</span>}
       
       <div className={`flex items-center gap-2 sm:gap-3 ${assessmentTimer ? "app-header__right" : "ml-auto"}`}>
-        {isAdmin && (
+        {isAdmin && !isSolveQuestion && (
           <select 
             value={viewRole} 
             onChange={handleRoleChange}

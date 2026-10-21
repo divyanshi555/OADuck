@@ -17,12 +17,6 @@ const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
   loading: () => <PageLoader />,
 });
 
-const difficultyColor = {
-  Easy: "#22c55e",
-  Medium: "#f59e0b",
-  Hard: "#ef4444",
-};
-
 const languages = {
   javascript: {
     label: "JavaScript",
@@ -469,10 +463,6 @@ export default function SolveQuestionPage() {
             </div>
             
             <div className="problem-meta">
-              {question.createdBy && <span className="topic-badge">Added by {question.createdBy.name || question.createdBy.email}</span>}
-              <span className="difficulty-badge" style={{ background: `${difficultyColor[question.difficulty]}18`, color: difficultyColor[question.difficulty] }}>
-                {question.difficulty}
-              </span>
               {question.topics?.map(t => (
                 <span className="topic-badge" key={t}>{t}</span>
               ))}
@@ -514,8 +504,10 @@ export default function SolveQuestionPage() {
                   {question.testCases.filter((testCase) => testCase.isSample).map((testCase, index) => (
                     <div className="saved-test-case" key={testCase.id || index}>
                       <strong>Sample {index + 1}</strong>
-                      <div><span>Input</span><pre>{testCase.input}</pre></div>
-                      <div><span>Expected output</span><pre>{testCase.expectedOutput}</pre></div>
+                      <div className="saved-test-case__io">
+                        <div className="saved-test-case__field saved-test-case__field--input"><span>Input</span><pre>{testCase.input || "(empty)"}</pre></div>
+                        <div className="saved-test-case__field saved-test-case__field--output"><span>Expected output</span><pre>{testCase.expectedOutput || "(empty)"}</pre></div>
+                      </div>
                     </div>
                   ))}
                   </div>
@@ -555,10 +547,12 @@ export default function SolveQuestionPage() {
                 </label>
               </div>
               <div className="editor-actions">
-                {assessment && isAdmin && <AdminTestModeToggle assessmentId={assessment.id} enabled={adminTestMode} onChange={setAdminTestMode} />}
-                <button type="button" className="editor-button editor-button--quiet" onClick={resetSolution}>Reset solution</button>
-                {question.optimalSolutions?.length > 0 && <button type="button" className="editor-button editor-button--quiet" onClick={toggleSolution}>{showSolution ? "Hide solution" : "Show solution"}</button>}
-                <button type="button" className="editor-button editor-button--quiet" onClick={() => setEditorMessage("Code saved locally for this session.")}>Save</button>
+                <div className="editor-actions__secondary">
+                  {assessment && isAdmin && <AdminTestModeToggle assessmentId={assessment.id} enabled={adminTestMode} onChange={setAdminTestMode} />}
+                  <button type="button" className="editor-button editor-button--quiet" onClick={resetSolution}>Reset solution</button>
+                  {question.optimalSolutions?.length > 0 && <button type="button" className="editor-button editor-button--quiet" onClick={toggleSolution}>{showSolution ? "Hide solution" : "Show solution"}</button>}
+                  <button type="button" className="editor-button editor-button--quiet" onClick={() => setEditorMessage("Code saved locally for this session.")}>Save</button>
+                </div>
                 <button type="button" className="editor-button editor-button--run" onClick={runCode} disabled={isRunning || isSubmitting}>{isRunning ? "Running…" : "Run"}</button>
                 <button type="button" className="editor-button editor-button--submit" onClick={submitCode} disabled={isRunning || isSubmitting || sessionCompleted}>{sessionCompleted ? "Session complete" : isSubmitting ? "Submitting…" : "Submit"}</button>
                 {assessment && <button type="button" className="editor-button editor-button--quiet" onClick={endAssessment} disabled={isRunning || isSubmitting || sessionCompleted || isEndingAssessment}>{isEndingAssessment ? "Ending…" : "End assessment"}</button>}
@@ -593,6 +587,7 @@ export default function SolveQuestionPage() {
                 <div className="editor-tabs" role="tablist" aria-label="Execution results">
                   <button type="button" className={activeConsoleTab === "tests" ? "editor-tab editor-tab--active" : "editor-tab"} onClick={() => { setActiveConsoleTab("tests"); setIsOutputOpen(true); }}>✓ Testcase</button>
                   <button type="button" className={activeConsoleTab === "terminal" ? "editor-tab editor-tab--active" : "editor-tab"} onClick={() => { setActiveConsoleTab("terminal"); setIsOutputOpen(true); }}><svg className="editor-tab__icon" aria-hidden="true" viewBox="0 0 20 20"><path d="m6 4 6 6-6 6M13 16h4" /></svg>Test Result</button>
+                  <button type="button" className="editor-output-toggle" onClick={() => setIsOutputOpen((open) => !open)} aria-label={isOutputOpen ? "Collapse test panel" : "Expand test panel"}>{isOutputOpen ? "Collapse" : "Expand"}</button>
                 </div>
                 {activeConsoleTab === "terminal" ? (
                   <pre className="editor-terminal">{output || "Run your code to see terminal output here."}</pre>

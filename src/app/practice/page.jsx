@@ -62,7 +62,7 @@ export default function PracticePage() {
         <Sidebar />
         <section className="flex w-full flex-1">
           <div className="relative isolate flex min-h-[calc(100dvh-3.5rem)] w-full items-center overflow-hidden bg-[#123f36] px-5 py-8 text-white sm:px-9 sm:py-10 lg:px-12">
-            <div className="pointer-events-none absolute -right-[450px] top-1/2 z-0 h-[1120px] w-[1120px] -translate-y-1/2 rounded-full bg-[#123f36] max-md:-right-[200px] max-md:h-[620px] max-md:w-[620px]" aria-hidden="true">
+            <div className="practice-rings pointer-events-none absolute -right-[450px] top-1/2 z-0 h-[1120px] w-[1120px] -translate-y-1/2 rounded-full bg-[#123f36] max-md:-right-[200px] max-md:h-[620px] max-md:w-[620px]" aria-hidden="true">
               <div className="absolute inset-[40px] rounded-full bg-[#17483e] max-md:inset-[20px]">
                 <div className="absolute inset-[40px] rounded-full bg-[#1b5145] max-md:inset-[20px]">
                   <div className="absolute inset-[40px] rounded-full bg-[#205a4d] max-md:inset-[20px]">
@@ -91,10 +91,10 @@ export default function PracticePage() {
             </div>
 
             <div className="relative z-10 w-full max-w-4xl">
-              <h1 className="m-0 max-w-3xl text-5xl font-semibold leading-tight text-white sm:text-6xl">Start your practice and sharpen your problem-solving skills.</h1>
+              <h1 className="m-0 max-w-3xl text-5xl font-semibold leading-tight text-white sm:text-6xl">Start your practice</h1>
               <p className="mb-0 mt-4 max-w-3xl text-lg leading-8 text-emerald-100 sm:mt-5 sm:text-2xl">Choose a topic and difficulty, then jump into a focused challenge picked from your problem library. Keep practicing, build consistency, and turn every attempt into progress.</p>
 
-              <form className="mt-6 grid gap-3 sm:mt-8 sm:w-fit sm:grid-cols-[minmax(180px,230px)_minmax(180px,230px)_auto] sm:items-end" onSubmit={startPractice}>
+              <form className="mt-6 grid gap-3 sm:mt-8 sm:w-fit sm:grid-cols-[210px_210px_auto] sm:items-end" onSubmit={startPractice}>
                 <label className="grid gap-1.5 text-xs font-semibold text-emerald-50">
                   Topic
                   <select className={selectClass} style={{ color: "#f7f5ed", backgroundColor: "#0c342d" }} value={topic} onChange={(event) => { setTopic(event.target.value); setError(""); }} disabled={loading || starting}>
@@ -108,7 +108,7 @@ export default function PracticePage() {
                     {difficulties.map((value) => <option style={{ color: "#17221e", backgroundColor: "#fffefa" }} key={value}>{value}</option>)}
                   </select>
                 </label>
-                <button className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md bg-[#f7f5ed] px-5 text-sm font-bold text-[#123f36] transition hover:bg-white disabled:cursor-wait disabled:opacity-70 sm:px-6" type="submit" disabled={loading || starting || !questions.length}>
+                <button className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md bg-[#f7f5ed] px-4 text-sm font-bold text-[#123f36] transition hover:bg-white disabled:cursor-wait disabled:opacity-70" type="submit" disabled={loading || starting || !questions.length}>
                   {loading ? "Loading…" : starting ? "Starting…" : "Start practice"}<span aria-hidden="true">→</span>
                 </button>
               </form>

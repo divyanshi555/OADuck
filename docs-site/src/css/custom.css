@@ -1,0 +1,60 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --oa-surface: #f5f7f3; --oa-sidebar: #fbfcf9; --oa-green: #123f36; --oa-primary: #176a5a; --oa-ink: #17221e; --oa-line: #dce5df;
+  --ifm-color-primary: #176a5a; --ifm-color-primary-dark: #145b4e; --ifm-color-primary-darker: #104c41; --ifm-color-primary-darkest: #0c3d34;
+  --ifm-color-primary-light: #23816e; --ifm-color-primary-lighter: #329982; --ifm-color-primary-lightest: #5fb7a3;
+  --ifm-background-color: var(--oa-surface); --ifm-font-family-base: 'Manrope', system-ui, sans-serif; --ifm-heading-font-family: 'Space Grotesk', system-ui, sans-serif; --ifm-code-font-size: 88%;
+  --docusaurus-highlighted-code-line-bg: rgba(23, 106, 90, .1);
+}
+
+html, body { background: var(--oa-surface); font-family: 'Manrope', system-ui, sans-serif; }
+h1, h2, h3, h4, h5, h6, .navbar__title, .menu__link, .button { font-family: 'Space Grotesk', system-ui, sans-serif; }
+.navbar { min-height: 3.15rem; background: linear-gradient(105deg, #101b18 0%, #123f36 58%, #164f44 100%); box-shadow: 0 6px 18px rgba(15,35,29,.13); }
+.navbar__inner { width: min(100%, 1180px); margin: 0 auto; padding: 0 1rem; }
+.navbar__logo img { width: 2rem; height: 2rem; object-fit: contain; }
+.navbar__brand { gap: .55rem; }
+.navbar__title { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: .92rem; letter-spacing: -.01em; }
+.navbar__items { gap: .35rem; }
+.navbar__link { border-radius: .45rem; padding: .55rem .75rem; font-size: .78rem; font-weight: 700; }
+.navbar__link:hover { background: rgba(255,255,255,.08); }
+.navbar__title, .navbar__link { color: #fff; }
+.navbar__link:hover, .navbar__item--active .navbar__link { color: #9bd1b6; }
+.button--primary { border: 0; background: var(--oa-primary); color: #fff; }
+.button--primary:hover { background: #23816e; color: #fff; }
+.footer { background: #101b18; padding: 2.8rem 0 1.2rem; }
+.footer__links { width: min(100% - 2rem, 1180px); margin: 0 auto 2rem; }
+.footer__col { padding: 0 .75rem; }
+.footer__title { margin-bottom: .7rem; color: #fff; font-family: 'Space Grotesk', system-ui, sans-serif; font-size: .78rem; letter-spacing: .04em; }
+.footer__link-item { color: #d5e4d9; font-size: .76rem; }
+.footer__link-item:hover { color: #9bd1b6; }
+.footer__copyright { width: min(100% - 2rem, 1180px); margin: 1.5rem auto 0; border-top: 1px solid rgba(255,255,255,.13); padding-top: 1rem; color: #849589; font-size: .68rem; text-align: left; }
+.theme-doc-sidebar-container { border-right: 1px solid var(--oa-line); background: var(--oa-sidebar); }
+.theme-doc-sidebar-menu { padding: .65rem; }
+.menu__link { border-radius: .55rem; color: #68766e; font-size: .82rem; }
+.menu__link:hover { background: #edf2ee; color: var(--oa-green); }
+.menu__link--active { background: #e5f1e9; color: var(--oa-green); font-weight: 750; }
+.theme-doc-markdown { max-width: 54rem; font-size: .86rem; }
+.main-wrapper { min-height: calc(100vh - 3.15rem); }
+.container { max-width: 1180px; }
+.theme-doc-markdown h1, .theme-doc-markdown h2, .theme-doc-markdown h3 { color: var(--oa-ink); font-family: 'Space Grotesk', system-ui, sans-serif; letter-spacing: -.04em; }
+.theme-doc-markdown h1 { font-size: 2.5rem; }
+.theme-doc-markdown h2 { font-size: 1.6rem; }
+.theme-doc-markdown a { color: var(--oa-primary); }
+.theme-doc-markdown table { display: table; width: 100%; border-collapse: collapse; font-size: .82rem; }
+.theme-doc-markdown th { background: #edf2ee; color: var(--oa-green); }
+.theme-doc-markdown td, .theme-doc-markdown th { border-color: var(--oa-line); }
+.theme-doc-markdown code { border-color: #dce8df; background: #eef5f0; color: #176a5a; }
+.theme-doc-markdown blockquote { border-left-color: #45bd7d; background: #f0f7f2; color: #53635b; }
+
+[data-theme='dark'] {
+  --ifm-color-primary: #9bd1b6; --ifm-color-primary-dark: #83c2a2; --ifm-color-primary-darker: #6db38d; --ifm-color-primary-darkest: #56a47a;
+  --ifm-color-primary-light: #b1ddc6; --ifm-color-primary-lighter: #c6e7d3; --ifm-color-primary-lightest: #ddf0e3;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, .3);
+}

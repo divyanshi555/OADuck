@@ -1,0 +1,11 @@
+.features {
+  display: flex;
+  align-items: center;
+  padding: 1.4rem 0 2.6rem;
+  width: 100%;
+}
+
+.featureCard { min-height: 10.5rem; border-top: 2px solid var(--oa-line); padding: .9rem .8rem .8rem 0; }
+.number { color: var(--oa-primary); font-family: var(--ifm-font-family-monospace); font-size: .75rem; font-weight: 800; }
+.featureCard h3 { margin-top: 1.5rem; color: var(--oa-ink); font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 1rem; }
+.featureCard p { color: #687269; font-size: .78rem; line-height: 1.6; }

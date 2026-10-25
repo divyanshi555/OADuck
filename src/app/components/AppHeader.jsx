@@ -7,6 +7,8 @@ import BrandLogo from "./BrandLogo";
 import ProfileMenu from "./ProfileMenu";
 import { usePersistentNavigation } from "./NavigationContext";
 
+const DOCS_URL = process.env.NEXT_PUBLIC_DOCS_URL || "/docs/overview";
+
 function formatTimer(totalSeconds) {
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -82,6 +84,7 @@ export default function AppHeader({ assessmentTimer, persistentRoot = false }) {
       {assessmentTimer && !isSolveQuestion && <span className="app-header__candidate">{session?.user?.name || session?.user?.email?.split("@")[0] || "Candidate"}</span>}
       
       <div className={`flex items-center gap-2 sm:gap-3 ${assessmentTimer ? "app-header__right" : "ml-auto"}`}>
+        {!assessmentTimer && <a className="hidden rounded-md px-2 py-1 text-xs font-semibold text-[#d5e4d9] transition hover:bg-white/10 hover:text-white sm:inline-flex" href={DOCS_URL} target="_blank" rel="noreferrer">Docs</a>}
         {isAdmin && !isSolveQuestion && (
           <select 
             value={viewRole} 

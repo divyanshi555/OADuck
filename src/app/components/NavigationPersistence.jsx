@@ -20,7 +20,9 @@ function shouldPersistNavigation(pathname) {
 export default function NavigationPersistence({ children }) {
   const pathname = usePathname();
   const { status } = useSession();
-  const persistent = status !== "unauthenticated" && shouldPersistNavigation(pathname);
+  // Do not show workspace chrome during the initial session-loading state.
+  // Otherwise a logged-out refresh briefly renders the authenticated shell.
+  const persistent = status === "authenticated" && shouldPersistNavigation(pathname);
 
   return (
     <NavigationProvider value={persistent}>

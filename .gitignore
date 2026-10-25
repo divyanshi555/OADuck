@@ -19,6 +19,13 @@
 
 # production
 /build
+/public/docs/
+
+# Docusaurus generated dependencies/cache folders
+/docs-site/node_modules*/
+/docs-site/.docusaurus/
+/docs-site/.cache-loader/
+/docs-site/.swc-cache*/
 
 # misc
 .DS_Store

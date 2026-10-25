@@ -4,62 +4,224 @@ import { redirect } from "next/navigation";
 import { auth } from "../auth";
 import BrandLogo from "./components/BrandLogo";
 
-const features = [
-  ["01", "Practice with purpose", "Solve focused coding questions with clear constraints, examples, and helpful hints."],
-  ["02", "Build real progress", "Keep your attempts, results, and activity in one calm workspace that is easy to return to."],
-  ["03", "Think like an interview", "Use timed assessment sessions to sharpen your speed, accuracy, and confidence."],
-];
+const DOCS_URL = process.env.NEXT_PUBLIC_DOCS_URL || "/docs/overview";
 
 export default async function Home() {
   const session = await auth();
   if (session?.user) redirect("/practice");
 
   return (
-    <main className="landing-page">
-      <nav className="landing-nav" aria-label="Main navigation">
+    <main className="site-landing">
+      <nav className="site-nav" aria-label="Main navigation">
         <BrandLogo />
-        <div className="landing-nav__links">
-          <Link href="#why-oa-duck">Why OA Duck</Link>
-          <Link href="/login" className="landing-nav__login">Log in <span aria-hidden="true">→</span></Link>
+        <div className="site-nav__links">
+          <Link href="#features">Features</Link>
+          <Link href="#about">About</Link>
+          <Link href="#contact">Contact</Link>
+          <a href={DOCS_URL} target="_blank" rel="noreferrer">Docs</a>
+          <Link href="/login" className="site-nav__login">
+            Log in
+          </Link>
+          <Link href="/register" className="site-nav__signup">
+            Get started <span aria-hidden="true">↗</span>
+          </Link>
         </div>
       </nav>
 
-      <section className="landing-hero" aria-labelledby="landing-title">
-        <div className="landing-hero__copy">
-          <p className="landing-eyebrow"><span aria-hidden="true">●</span> A better way to practice</p>
-          <h1 id="landing-title">Build better answers, one question at a time.</h1>
-          <p className="landing-hero__intro">OA Duck is a focused coding workspace for learning, practicing, and becoming interview-ready without the noise.</p>
-          <div className="landing-hero__actions">
-            <Link href="/register" className="landing-button landing-button--primary">Start practicing <span aria-hidden="true">→</span></Link>
-            <Link href="/login" className="landing-button landing-button--secondary">I already have an account</Link>
+      <section className="site-hero" aria-labelledby="site-hero-title">
+        <div className="site-hero__copy">
+       
+          <h1 id="site-hero-title">
+            Turn practice into <em>progress.</em>
+          </h1>
+          <p className="site-hero__lead">
+            OA Duck gives you a focused place to solve coding questions, learn
+            from every attempt, and walk into interviews with confidence.
+          </p>
+          <div className="site-hero__actions">
+            <Link href="/register" className="site-button site-button--dark">
+              Start practicing <span aria-hidden="true">↗</span>
+            </Link>
+            <Link href="#features" className="site-text-link">
+              See how it works <span aria-hidden="true">↓</span>
+            </Link>
           </div>
-          <p className="landing-hero__note">Free to get started · Learn at your own pace</p>
+         
         </div>
-
-        <div className="landing-hero__visual" aria-label="A preview of the OA Duck practice workspace">
-          <div className="landing-orbit landing-orbit--one" />
-          <div className="landing-orbit landing-orbit--two" />
-          <div className="landing-card landing-card--question">
-            <span className="landing-card__label">TODAY&apos;S FOCUS</span>
-            <strong>Reverse Integer</strong>
-            <span className="landing-card__meta">Medium <i>•</i> Math</span>
-            <div className="landing-progress"><span /></div>
-            <small>Keep going — you&apos;re building momentum.</small>
+        <div
+          className="site-hero__art"
+          aria-label="OA Duck mascot illustration"
+        >
+          <div className="site-hero__halo" />
+          <div className="site-hero__dialog">
+            Hey! Ready to solve
+            <br />
+            <strong>one more question?</strong>
+            <span aria-hidden="true" />
           </div>
-          <div className="landing-card landing-card--score"><span className="landing-score__icon">↗</span><span><strong>12</strong><small>solved this week</small></span></div>
-          <div className="landing-hero__duck"><Image src="/OADuck.png" alt="" width={145} height={145} priority /></div>
+          <Image
+            src="/duck-hero.png"
+            alt="OA Duck mascot"
+            width={545}
+            height={711}
+            priority
+            draggable="false"
+          />
+          <div className="site-hero__note site-hero__note--bottom">
+            Practice. Reflect.
+            <br />
+            <strong>Repeat.</strong>
+          </div>
         </div>
       </section>
 
-      <section className="landing-features" id="why-oa-duck" aria-labelledby="features-title">
-        <div className="landing-section-heading"><p className="landing-eyebrow">Everything you need</p><h2 id="features-title">Make practice feel productive.</h2></div>
-        <div className="landing-feature-grid">
-          {features.map(([number, title, text]) => <article className="landing-feature" key={number}><span className="landing-feature__number">{number}</span><h3>{title}</h3><p>{text}</p></article>)}
+     
+
+      <section
+        className="site-section site-features"
+        id="features"
+        aria-labelledby="features-title"
+      >
+        <div className="site-section__heading">
+          <h2 id="features-title">A better loop for getting better.</h2>
+          <p>
+            Good preparation is not about doing more. It is about knowing what
+            to do next.
+          </p>
+        </div>
+        <div className="site-feature-grid">
+          <article className="site-feature">
+            <span>01</span>
+            <h3>Practice with purpose</h3>
+            <p>
+              Work through focused questions with constraints, examples, and
+              hints that keep you moving.
+            </p>
+            <Link href="/practice">Explore practice ↗</Link>
+          </article>
+          <article className="site-feature">
+            <span>02</span>
+            <h3>Learn from the attempt</h3>
+            <p>
+              See your history, revisit tricky ideas, and turn mistakes into a
+              plan for the next session.
+            </p>
+            <Link href="/profile">Track your progress ↗</Link>
+          </article>
+          <article className="site-feature">
+            <span>03</span>
+            <h3>Build interview confidence</h3>
+            <p>
+              Use assessment-style practice to improve your speed, clarity, and
+              decisions under pressure.
+            </p>
+            <Link href="/register">Get ready ↗</Link>
+          </article>
         </div>
       </section>
 
-      <section className="landing-cta"><div><p className="landing-eyebrow">Your next breakthrough is one question away.</p><h2>Ready to get started?</h2></div><Link href="/register" className="landing-button landing-button--light">Create your account <span aria-hidden="true">→</span></Link></section>
-      <footer className="landing-footer"><BrandLogo /><span>Practice with purpose.</span></footer>
+      <section
+        className="site-section site-process"
+        aria-labelledby="process-title"
+      >
+        <div className="site-process__heading">
+          <p className="site-kicker">The OA Duck method</p>
+          <h2 id="process-title">
+            Show up.
+            <br />
+            Solve one.
+            <br />
+            <em>Keep going.</em>
+          </h2>
+        </div>
+        <div className="site-process__steps">
+          <div>
+            <span>1</span>
+            <h3>Choose a challenge</h3>
+            <p>Pick a question that meets you where you are today.</p>
+          </div>
+          <div>
+            <span>2</span>
+            <h3>Think it through</h3>
+            <p>Make your approach clear before you make it fast.</p>
+          </div>
+          <div>
+            <span>3</span>
+            <h3>Keep the signal</h3>
+            <p>Use every result to make the next attempt smarter.</p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="site-section site-about"
+        id="about"
+        aria-labelledby="about-title"
+      >
+        <div className="site-about__card">
+          <div className="site-about__duck">
+            <Image
+              src="/OADuck.png"
+              alt="OA Duck icon"
+              width={220}
+              height={176}
+            />
+          </div>
+          <div>
+            <p className="site-kicker">Why OA Duck exists</p>
+            <h2 id="about-title">
+              Preparation should feel like a place you want to return to.
+            </h2>
+            <p>
+              OA Duck is built around a simple belief: consistent practice works
+              best when the experience feels clear, encouraging, and genuinely
+              yours.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="site-cta" id="contact" aria-labelledby="cta-title">
+        <div>
+          <p className="site-kicker">Your next step is simple</p>
+          <h2 id="cta-title">Make today’s question count.</h2>
+          <p>
+            Start free, build your rhythm, and let the duck keep you company.
+          </p>
+        </div>
+        <Link href="/register" className="site-button site-button--light">
+          Create your account <span aria-hidden="true">↗</span>
+        </Link>
+      </section>
+
+      <footer className="site-footer">
+        <div className="site-footer__brand">
+          <BrandLogo />
+          <p>Focused practice for ambitious learners.</p>
+        </div>
+        <div className="site-footer__links">
+          <div>
+            <strong>Explore</strong>
+            <Link href="/practice">Practice</Link>
+            <Link href="/questions">Library</Link>
+            <Link href="/profile">Profile</Link>
+            <a href={DOCS_URL} target="_blank" rel="noreferrer">Documentation</a>
+            <Link href="#features">Features</Link>
+          </div>
+          <div>
+            <strong>Connect</strong>
+            <Link href="#about">About OA Duck</Link>
+            <Link href="#contact">Contact</Link>
+            <a href="mailto:hello@oaduck.dev">hello@oaduck.dev</a>
+            <Link href="/login">Log in</Link>
+            <Link href="/register">Sign up</Link>
+          </div>
+        </div>
+        <div className="site-footer__bottom">
+          <span>© 2026 OA Duck</span>
+          <span>Practice with purpose.</span>
+        </div>
+      </footer>
     </main>
   );
 }

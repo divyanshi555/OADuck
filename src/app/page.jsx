@@ -22,7 +22,7 @@ export default async function Home() {
         </div>
         <div className="site-nav__actions">
           <Link href="/register" className="site-nav__signin">
-            Sign In
+            Register
           </Link>
           <Link href="/login" className="site-nav__login">
             Login
@@ -49,7 +49,6 @@ export default async function Home() {
           </div>
         </div>
         <div className="site-hero__art">
-          <span className="site-hero__heart" aria-hidden="true">♡</span>
           <Image
             src="/duck-hero.png"
             alt="OA Duck mascot"
@@ -176,42 +175,42 @@ export default async function Home() {
           </svg>
           <div className="site-process__heading">
             <h2 id="process-title">How OA Duck works</h2>
-            <p>From your first question to your next breakthrough</p>
+           
           </div>
           <ol className="site-process__steps">
-            <li className="site-process__step site-process__step--one">
-              <span aria-hidden="true">01</span>
-              <div>
+            <li className="site-process__step site-process__step--one !top-[40%] !left-[17%] max-[760px]:!top-[20%] max-[760px]:!left-[22%]">
+              <span className="[&::after]:!hidden" aria-hidden="true">01<i className="absolute -top-2 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border-l-[3px] border-t-[3px] border-current bg-white" /></span>
+              <div className="ml-35 !top-auto !bottom-[calc(100%+0.85rem)] !left-1/2 !-translate-x-1/2">
                 <h3>Login &amp; Profile</h3>
-                <p>Create your account and personalize your profile.</p>
+                <p>Create your account, set your goals, and personalize your practice profile so OA Duck can keep your journey focused.</p>
               </div>
             </li>
-            <li className="site-process__step site-process__step--two">
+            <li className="site-process__step site-process__step--two !top-[70%] !left-[30%] max-[760px]:!top-[34%] max-[760px]:!left-[78%]">
               <span aria-hidden="true">02</span>
-              <div>
+              <div className="ml-35 !top-[calc(100%+0.85rem)] !bottom-auto !left-1/2 !-translate-x-1/2">
                 <h3>Select a Question</h3>
-                <p>Choose a challenge yourself or let OA Duck pick one for you.</p>
+                <p>Browse the question library by topic and difficulty, or let OA Duck choose a challenge that matches your current level.</p>
               </div>
             </li>
-            <li className="site-process__step site-process__step--three">
-              <span aria-hidden="true">03</span>
-              <div>
+            <li className="site-process__step site-process__step--three !top-[43%] !left-[47%] max-[760px]:!top-[52%] max-[760px]:!left-[22%]">
+              <span className="[&::after]:!hidden" aria-hidden="true">03<i className="absolute -top-2 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border-l-[3px] border-t-[3px] border-current bg-white" /></span>
+              <div className="ml-35 !top-auto !bottom-[calc(100%+0.85rem)] !left-1/2 !-translate-x-1/2">
                 <h3>Assessment Sandbox</h3>
-                <p>Solve in a focused, secure environment built for assessments.</p>
+                <p>Write and run your solution in a focused assessment workspace with language support, test cases, timers, and a secure testing flow.</p>
               </div>
             </li>
-            <li className="site-process__step site-process__step--four">
-              <span aria-hidden="true">04</span>
-              <div>
+            <li className="site-process__step site-process__step--four !top-[17%] !left-[74.5%] max-[760px]:!top-[70%] max-[760px]:!left-[78%]">
+              <span className="[&::after]:!hidden" aria-hidden="true">04<i className="absolute top-1/2 -right-2 h-3 w-3 -translate-y-1/2 rotate-45 border-r-[3px] border-t-[3px] border-current bg-white" /></span>
+              <div className="mb-33 ml-40 !top-[calc(38%-10px)] !bottom-auto !left-1/2 !translate-x-[50px] !-translate-y-1/2 max-[760px]:!top-auto max-[760px]:!bottom-[calc(100%+0.85rem)] max-[760px]:!left-1/2 max-[760px]:!translate-x-1/2 max-[760px]:!-translate-y-0">
                 <h3>AI Diagnostic Analysis</h3>
-                <p>Review your evaluation, complexity, and AI-powered walkthrough.</p>
+                <p>After a submission, understand what worked, what failed, and how to improve through complexity notes and an AI-powered walkthrough.</p>
               </div>
             </li>
-            <li className="site-process__step site-process__step--five">
+            <li className="site-process__step site-process__step--five !top-[54%] !left-[87%] max-[760px]:!top-[89%] max-[760px]:!left-[50%]">
               <span aria-hidden="true">05</span>
-              <div>
+              <div className="ml-35 !top-[calc(100%+0.85rem)] !bottom-auto !left-1/2 !-translate-x-1/2">
                 <h3>Dashboard Activity</h3>
-                <p>Track your progress, readiness, and performance over time.</p>
+                <p>Return to your dashboard to see solved problems, accuracy, assessment history, and the progress you are making over time.</p>
               </div>
             </li>
           </ol>
@@ -225,40 +224,73 @@ export default async function Home() {
       >
         <div className="site-about__content">
           <div className="site-about__heading">
-            <p className="site-kicker">Behind the practice</p>
-            <h2 id="about-title">Meet the builders</h2>
+            
+            <h2 id="about-title">Developed by</h2>
           </div>
           <div className="site-builder-grid">
             <article className="site-builder">
-              <div className="site-builder__identity">
-                <span className="site-builder__avatar site-builder__avatar--ankur" aria-hidden="true">
-                  A
-                </span>
+              <div className="site-builder__photo">
+                <Image
+                  className="site-builder__photo-image"
+                  src="/Ankur.jpeg"
+                  alt="Ankur"
+                  width={1200}
+                  height={900}
+                  quality={95}
+                  sizes="(max-width: 760px) 40vw, 28vw"
+                />
+              </div>
+              <div className="site-builder__copy">
+                <div className="site-builder__identity">
                 <div>
-                  <h3>Ankur</h3>
-                  <p className="site-builder__role">Co-founder · Engineering &amp; Platform</p>
+                  <h3>Ankur Singh Sir</h3>
+                </div>
+                </div>
+                <p className=" text-lg site-builder__bio">
+                  Builds the assessment foundation behind OA Duck, from reliable
+                  code execution and evaluation to a focused testing environment.
+                </p>
+                <div className="site-builder__socials" aria-label="Ankur's social profiles">
+                  <a className="site-builder__social-link site-builder__social-link--linkedin" href="https://www.linkedin.com/in/ankurrr27/" target="_blank" rel="noreferrer" aria-label="Ankur on LinkedIn">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.2H3.2V20h3.3V8.2ZM4.85 3A1.95 1.95 0 1 0 4.85 6.9 1.95 1.95 0 0 0 4.85 3ZM20.8 13.23c0-3.55-1.9-5.2-4.44-5.2-2.05 0-2.97 1.13-3.48 1.92V8.2H9.58V20h3.3v-5.84c0-1.54.29-3.03 2.2-3.03 1.89 0 1.92 1.76 1.92 3.13V20h3.3l.5-6.77Z" /></svg>
+                  </a>
+                  <a className="site-builder__social-link site-builder__social-link--github" href="https://github.com/Ankurrr27/" target="_blank" rel="noreferrer" aria-label="Ankur on GitHub">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.5 9.5 0 0 0-3 18.52c.47.09.64-.2.64-.45v-1.7c-2.62.57-3.17-1.11-3.17-1.11-.43-1.09-1.05-1.38-1.05-1.38-.86-.59.07-.58.07-.58.95.07 1.45.98 1.45.98.84 1.45 2.2 1.03 2.74.79.09-.61.33-1.03.6-1.27-2.09-.24-4.29-1.05-4.29-4.66 0-1.03.37-1.86.98-2.52-.1-.24-.42-1.2.09-2.49 0 0 .8-.26 2.62.96a9.1 9.1 0 0 1 4.77 0c1.82-1.22 2.62-.96 2.62-.96.51 1.29.19 2.25.09 2.49.61.66.98 1.49.98 2.52 0 3.62-2.2 4.42-4.3 4.65.34.3.64.88.64 1.78v2.64c0 .25.17.55.65.45A9.5 9.5 0 0 0 12 2.5Z" /></svg>
+                  </a>
                 </div>
               </div>
-              <p className="site-builder__bio">
-                Builds the assessment foundation behind OA Duck, from reliable
-                code execution and evaluation to a focused testing environment.
-              </p>
             </article>
             <article className="site-builder">
-              <div className="site-builder__identity">
-                <span className="site-builder__avatar site-builder__avatar--divyanshi" aria-hidden="true">
-                  D
-                </span>
+              <div className="site-builder__photo">
+                <Image
+                  className="site-builder__photo-image"
+                  src="/Divya.jpg"
+                  alt="Divya"
+                  width={1000}
+                  height={1000}
+                  quality={95}
+                  sizes="(max-width: 760px) 40vw, 28vw"
+                />
+              </div>
+              <div className="site-builder__copy">
+                <div className="site-builder__identity">
                 <div>
-                  <h3>Divyanshi</h3>
-                  <p className="site-builder__role">Co-founder · Product &amp; Experience</p>
+                  <h3>Divyanshi Pure hit</h3>
+                </div>
+                </div>
+                <p className="site-builder__bio">
+                 Builds the assessment foundation behind OA Duck, from reliable
+                  code execution and evaluation to a focused testing environment.
+                </p>
+                <div className="site-builder__socials" aria-label="Divya's social profiles">
+                  <a className="site-builder__social-link site-builder__social-link--linkedin" href="https://www.linkedin.com/in/divyanshipurohit555/" target="_blank" rel="noreferrer" aria-label="Divya on LinkedIn">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.2H3.2V20h3.3V8.2ZM4.85 3A1.95 1.95 0 1 0 4.85 6.9 1.95 1.95 0 0 0 4.85 3ZM20.8 13.23c0-3.55-1.9-5.2-4.44-5.2-2.05 0-2.97 1.13-3.48 1.92V8.2H9.58V20h3.3v-5.84c0-1.54.29-3.03 2.2-3.03 1.89 0 1.92 1.76 1.92 3.13V20h3.3l.5-6.77Z" /></svg>
+                  </a>
+                  <a className="site-builder__social-link site-builder__social-link--github" href="https://github.com/Divyansh-Purohit" target="_blank" rel="noreferrer" aria-label="Divya on GitHub">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.5 9.5 0 0 0-3 18.52c.47.09.64-.2.64-.45v-1.7c-2.62.57-3.17-1.11-3.17-1.11-.43-1.09-1.05-1.38-1.05-1.38-.86-.59.07-.58.07-.58.95.07 1.45.98 1.45.98.84 1.45 2.2 1.03 2.74.79.09-.61.33-1.03.6-1.27-2.09-.24-4.29-1.05-4.29-4.66 0-1.03.37-1.86.98-2.52-.1-.24-.42-1.2.09-2.49 0 0 .8-.26 2.62.96a9.1 9.1 0 0 1 4.77 0c1.82-1.22 2.62-.96 2.62-.96.51 1.29.19 2.25.09 2.49.61.66.98 1.49.98 2.52 0 3.62-2.2 4.42-4.3 4.65.34.3.64.88.64 1.78v2.64c0 .25.17.55.65.45A9.5 9.5 0 0 0 12 2.5Z" /></svg>
+                  </a>
                 </div>
               </div>
-              <p className="site-builder__bio">
-                Shapes the practice journey, helping candidates move from
-                choosing a challenge to understanding results and tracking
-                progress.
-              </p>
             </article>
           </div>
         </div>

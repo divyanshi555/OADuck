@@ -15,50 +15,41 @@ export default async function Home() {
       <nav className="site-nav" aria-label="Main navigation">
         <BrandLogo />
         <div className="site-nav__links">
+          <Link href="#home">Home</Link>
           <Link href="#features">Features</Link>
-          <Link href="#about">About</Link>
-          <Link href="#contact">Contact</Link>
-          <a href={DOCS_URL} target="_blank" rel="noreferrer">Docs</a>
-          <Link href="/login" className="site-nav__login">
-            Log in
+          <Link href="#how-it-works">How it Works</Link>
+          <Link href="#about">Developed by</Link>
+        </div>
+        <div className="site-nav__actions">
+          <Link href="/register" className="site-nav__signin">
+            Sign In
           </Link>
-          <Link href="/register" className="site-nav__signup">
-            Get started <span aria-hidden="true">↗</span>
+          <Link href="/login" className="site-nav__login">
+            Login
           </Link>
         </div>
       </nav>
 
-      <section className="site-hero" aria-labelledby="site-hero-title">
+      <section id="home" className="site-hero" aria-labelledby="site-hero-title">
         <div className="site-hero__copy">
-       
           <h1 id="site-hero-title">
-            Turn practice into <em>progress.</em>
+            Hi, I&apos;m Duck! Do you have to face frequent OAs and want to
+            practice and train yourself in a constrained environment?
           </h1>
           <p className="site-hero__lead">
-            OA Duck gives you a focused place to solve coding questions, learn
-            from every attempt, and walk into interviews with confidence.
+            Welcome to <strong>OADuck</strong> — a dedicated platform that
+            provides realistic assessment simulations, structured problem
+            practice, and smart diagnostic insights to help you build technical
+            confidence and master coding evaluations.
           </p>
           <div className="site-hero__actions">
-            <Link href="/register" className="site-button site-button--dark">
-              Start practicing <span aria-hidden="true">↗</span>
-            </Link>
-            <Link href="#features" className="site-text-link">
-              See how it works <span aria-hidden="true">↓</span>
+            <Link href="/register" className="site-button site-button--hero">
+              Get Started <span aria-hidden="true">→</span>
             </Link>
           </div>
-         
         </div>
-        <div
-          className="site-hero__art"
-          aria-label="OA Duck mascot illustration"
-        >
-          <div className="site-hero__halo" />
-          <div className="site-hero__dialog">
-            Hey! Ready to solve
-            <br />
-            <strong>one more question?</strong>
-            <span aria-hidden="true" />
-          </div>
+        <div className="site-hero__art">
+          <span className="site-hero__heart" aria-hidden="true">♡</span>
           <Image
             src="/duck-hero.png"
             alt="OA Duck mascot"
@@ -67,11 +58,6 @@ export default async function Home() {
             priority
             draggable="false"
           />
-          <div className="site-hero__note site-hero__note--bottom">
-            Practice. Reflect.
-            <br />
-            <strong>Repeat.</strong>
-          </div>
         </div>
       </section>
 
@@ -82,74 +68,153 @@ export default async function Home() {
         id="features"
         aria-labelledby="features-title"
       >
-        <div className="site-section__heading">
-          <h2 id="features-title">A better loop for getting better.</h2>
-          <p>
-            Good preparation is not about doing more. It is about knowing what
-            to do next.
-          </p>
+        <div className="site-features__heading">
+          <h2 id="features-title">Features</h2>
         </div>
-        <div className="site-feature-grid">
-          <article className="site-feature">
-            <span>01</span>
-            <h3>Practice with purpose</h3>
-            <p>
-              Work through focused questions with constraints, examples, and
-              hints that keep you moving.
-            </p>
-            <Link href="/practice">Explore practice ↗</Link>
-          </article>
-          <article className="site-feature">
-            <span>02</span>
-            <h3>Learn from the attempt</h3>
-            <p>
-              See your history, revisit tricky ideas, and turn mistakes into a
-              plan for the next session.
-            </p>
-            <Link href="/profile">Track your progress ↗</Link>
-          </article>
-          <article className="site-feature">
-            <span>03</span>
-            <h3>Build interview confidence</h3>
-            <p>
-              Use assessment-style practice to improve your speed, clarity, and
-              decisions under pressure.
-            </p>
-            <Link href="/register">Get ready ↗</Link>
-          </article>
+        <div className="site-features__content">
+          <aside className="site-features__mascot">
+            <Image
+              src="/duck-hero.png"
+              alt="OA Duck mascot"
+              width={545}
+              height={711}
+              draggable="false"
+            />
+            <p>Here is everything packed in fluffy feature boxes</p>
+          </aside>
+          <div className="site-feature-grid">
+            <article className="site-feature site-feature--wide">
+              <span className="site-feature__icon site-feature__icon--code" aria-hidden="true">
+                &lt;/&gt;
+              </span>
+              <h3>Multi-Language Support</h3>
+              <p>Execute natively in C++20, Java 17, and Python 3.11.</p>
+              <ul className="site-feature__tags" aria-label="Supported languages">
+                <li>C++</li>
+                <li>Python</li>
+                <li>Java</li>
+              </ul>
+            </article>
+            <article className="site-feature site-feature--wide">
+              <span className="site-feature__icon site-feature__icon--lock" aria-hidden="true">
+                ◆
+              </span>
+              <h3>Constrained Environment</h3>
+              <p>
+                Full-screen focus lock, copy and paste disabled, tab-switch
+                warnings, and reliable countdown timers. Practice under
+                authentic high-pressure test conditions.
+              </p>
+            </article>
+            <article className="site-feature">
+              <span className="site-feature__icon site-feature__icon--modes" aria-hidden="true">
+                ◆
+              </span>
+              <h3>Multiple Modes</h3>
+              <p>Random pick or choose the question you want to attempt.</p>
+            </article>
+            <article className="site-feature">
+              <span className="site-feature__icon site-feature__icon--insights" aria-hidden="true">
+                ◈
+              </span>
+              <h3>Diagnostic Insights</h3>
+              <p>
+                AI-based solution walkthroughs, complexity analysis, and
+                bottleneck detection after a wrong submission.
+              </p>
+            </article>
+            <article className="site-feature">
+              <span className="site-feature__icon site-feature__icon--dashboard" aria-hidden="true">
+                ◔
+              </span>
+              <h3>Dashboard</h3>
+              <p>
+                Submission velocity graphs, accuracy heatmaps, violation
+                history, and a readiness score tailored per company tier.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
 
       <section
-        className="site-section site-process"
+        className="site-process"
+        id="how-it-works"
         aria-labelledby="process-title"
       >
-        <div className="site-process__heading">
-          <p className="site-kicker">The OA Duck method</p>
-          <h2 id="process-title">
-            Show up.
-            <br />
-            Solve one.
-            <br />
-            <em>Keep going.</em>
-          </h2>
-        </div>
-        <div className="site-process__steps">
-          <div>
-            <span>1</span>
-            <h3>Choose a challenge</h3>
-            <p>Pick a question that meets you where you are today.</p>
+        <div className="site-process__trail">
+          <svg
+            className="site-process__road"
+            viewBox="0 0 1200 440"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              className="site-process__road-edge"
+              d="M-24 350 C78 335 111 191 202 199 S317 330 414 286 S517 186 597 214 S724 291 795 178 S894 80 947 155 S1050 245 1224 185"
+            />
+            <path
+              className="site-process__road-line"
+              d="M-24 350 C78 335 111 191 202 199 S317 330 414 286 S517 186 597 214 S724 291 795 178 S894 80 947 155 S1050 245 1224 185"
+            />
+            <path
+              className="site-process__road-dashes"
+              d="M-24 350 C78 335 111 191 202 199 S317 330 414 286 S517 186 597 214 S724 291 795 178 S894 80 947 155 S1050 245 1224 185"
+            />
+            <path
+              className="site-process__road-edge site-process__road-edge--mobile"
+              d="M180 -20 C180 70 78 68 78 154 S282 238 282 326 S78 410 78 498 S282 582 282 670 S78 754 78 842 S180 892 180 960"
+            />
+            <path
+              className="site-process__road-line site-process__road-line--mobile"
+              d="M180 -20 C180 70 78 68 78 154 S282 238 282 326 S78 410 78 498 S282 582 282 670 S78 754 78 842 S180 892 180 960"
+            />
+            <path
+              className="site-process__road-dashes site-process__road-dashes--mobile"
+              d="M180 -20 C180 70 78 68 78 154 S282 238 282 326 S78 410 78 498 S282 582 282 670 S78 754 78 842 S180 892 180 960"
+            />
+          </svg>
+          <div className="site-process__heading">
+            <h2 id="process-title">How OA Duck works</h2>
+            <p>From your first question to your next breakthrough</p>
           </div>
-          <div>
-            <span>2</span>
-            <h3>Think it through</h3>
-            <p>Make your approach clear before you make it fast.</p>
-          </div>
-          <div>
-            <span>3</span>
-            <h3>Keep the signal</h3>
-            <p>Use every result to make the next attempt smarter.</p>
-          </div>
+          <ol className="site-process__steps">
+            <li className="site-process__step site-process__step--one">
+              <span aria-hidden="true">01</span>
+              <div>
+                <h3>Login &amp; Profile</h3>
+                <p>Create your account and personalize your profile.</p>
+              </div>
+            </li>
+            <li className="site-process__step site-process__step--two">
+              <span aria-hidden="true">02</span>
+              <div>
+                <h3>Select a Question</h3>
+                <p>Choose a challenge yourself or let OA Duck pick one for you.</p>
+              </div>
+            </li>
+            <li className="site-process__step site-process__step--three">
+              <span aria-hidden="true">03</span>
+              <div>
+                <h3>Assessment Sandbox</h3>
+                <p>Solve in a focused, secure environment built for assessments.</p>
+              </div>
+            </li>
+            <li className="site-process__step site-process__step--four">
+              <span aria-hidden="true">04</span>
+              <div>
+                <h3>AI Diagnostic Analysis</h3>
+                <p>Review your evaluation, complexity, and AI-powered walkthrough.</p>
+              </div>
+            </li>
+            <li className="site-process__step site-process__step--five">
+              <span aria-hidden="true">05</span>
+              <div>
+                <h3>Dashboard Activity</h3>
+                <p>Track your progress, readiness, and performance over time.</p>
+              </div>
+            </li>
+          </ol>
         </div>
       </section>
 
@@ -158,67 +223,86 @@ export default async function Home() {
         id="about"
         aria-labelledby="about-title"
       >
-        <div className="site-about__card">
-          <div className="site-about__duck">
-            <Image
-              src="/OADuck.png"
-              alt="OA Duck icon"
-              width={220}
-              height={176}
-            />
+        <div className="site-about__content">
+          <div className="site-about__heading">
+            <p className="site-kicker">Behind the practice</p>
+            <h2 id="about-title">Meet the builders</h2>
           </div>
-          <div>
-            <p className="site-kicker">Why OA Duck exists</p>
-            <h2 id="about-title">
-              Preparation should feel like a place you want to return to.
-            </h2>
-            <p>
-              OA Duck is built around a simple belief: consistent practice works
-              best when the experience feels clear, encouraging, and genuinely
-              yours.
-            </p>
+          <div className="site-builder-grid">
+            <article className="site-builder">
+              <div className="site-builder__identity">
+                <span className="site-builder__avatar site-builder__avatar--ankur" aria-hidden="true">
+                  A
+                </span>
+                <div>
+                  <h3>Ankur</h3>
+                  <p className="site-builder__role">Co-founder · Engineering &amp; Platform</p>
+                </div>
+              </div>
+              <p className="site-builder__bio">
+                Builds the assessment foundation behind OA Duck, from reliable
+                code execution and evaluation to a focused testing environment.
+              </p>
+            </article>
+            <article className="site-builder">
+              <div className="site-builder__identity">
+                <span className="site-builder__avatar site-builder__avatar--divyanshi" aria-hidden="true">
+                  D
+                </span>
+                <div>
+                  <h3>Divyanshi</h3>
+                  <p className="site-builder__role">Co-founder · Product &amp; Experience</p>
+                </div>
+              </div>
+              <p className="site-builder__bio">
+                Shapes the practice journey, helping candidates move from
+                choosing a challenge to understanding results and tracking
+                progress.
+              </p>
+            </article>
           </div>
         </div>
-      </section>
-
-      <section className="site-cta" id="contact" aria-labelledby="cta-title">
-        <div>
-          <p className="site-kicker">Your next step is simple</p>
-          <h2 id="cta-title">Make today’s question count.</h2>
-          <p>
-            Start free, build your rhythm, and let the duck keep you company.
-          </p>
-        </div>
-        <Link href="/register" className="site-button site-button--light">
-          Create your account <span aria-hidden="true">↗</span>
-        </Link>
       </section>
 
       <footer className="site-footer">
-        <div className="site-footer__brand">
-          <BrandLogo />
-          <p>Focused practice for ambitious learners.</p>
-        </div>
-        <div className="site-footer__links">
-          <div>
-            <strong>Explore</strong>
-            <Link href="/practice">Practice</Link>
-            <Link href="/questions">Library</Link>
-            <Link href="/profile">Profile</Link>
-            <a href={DOCS_URL} target="_blank" rel="noreferrer">Documentation</a>
-            <Link href="#features">Features</Link>
+        <div className="site-footer__main">
+          <div className="site-footer__brand">
+            <BrandLogo />
+            <p>
+              A focused place to practice coding questions, simulate online
+              assessments, and learn from every attempt.
+            </p>
+            <Link href="/register" className="site-footer__start">
+              Start practicing <span aria-hidden="true">→</span>
+            </Link>
           </div>
-          <div>
-            <strong>Connect</strong>
-            <Link href="#about">About OA Duck</Link>
-            <Link href="#contact">Contact</Link>
-            <a href="mailto:hello@oaduck.dev">hello@oaduck.dev</a>
-            <Link href="/login">Log in</Link>
-            <Link href="/register">Sign up</Link>
+          <div className="site-footer__links">
+            <div>
+              <strong>Platform</strong>
+              <Link href="/practice">Coding practice</Link>
+              <Link href="/questions">Question library</Link>
+              <Link href="/duck-insight">Duck Insight</Link>
+              <Link href="/profile">Progress dashboard</Link>
+            </div>
+            <div>
+              <strong>Explore</strong>
+              <Link href="#features">Features</Link>
+              <Link href="#how-it-works">How it works</Link>
+              <Link href="#about">Meet the builders</Link>
+              <a href={DOCS_URL} target="_blank" rel="noreferrer">
+                Documentation
+              </a>
+            </div>
+            <div>
+              <strong>Account</strong>
+              <Link href="/register">Create an account</Link>
+              <Link href="/login">Log in</Link>
+              <a href="mailto:hello@oaduck.dev">Contact OA Duck</a>
+            </div>
           </div>
         </div>
         <div className="site-footer__bottom">
-          <span>© 2026 OA Duck</span>
+          <span>© 2026 OA Duck. Built for better coding practice.</span>
           <span>Practice with purpose.</span>
         </div>
       </footer>

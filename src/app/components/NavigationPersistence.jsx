@@ -7,6 +7,9 @@ import Sidebar from "./Sidebar";
 import { NavigationProvider } from "./NavigationContext";
 
 function shouldPersistNavigation(pathname) {
+  // The public landing page owns its own navigation, including for signed-in users.
+  if (pathname === "/") return false;
+
   const pathSegments = pathname.split("/").filter(Boolean);
   const isQuestionDetail = pathSegments[0] === "questions" && pathSegments.length > 1;
   return ![

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 import { auth } from "../auth";
 import BrandLogo from "./components/BrandLogo";
 
@@ -8,7 +7,6 @@ const DOCS_URL = process.env.NEXT_PUBLIC_DOCS_URL || "/docs/overview";
 
 export default async function Home() {
   const session = await auth();
-  if (session?.user) redirect("/practice");
 
   return (
     <main className="site-landing">
@@ -21,12 +19,20 @@ export default async function Home() {
           <Link href="#about">Developed by</Link>
         </div>
         <div className="site-nav__actions">
-          <Link href="/register" className="site-nav__signin">
-            Register
-          </Link>
-          <Link href="/login" className="site-nav__login">
-            Login
-          </Link>
+          {session?.user ? (
+            <Link href="/practice" className="site-nav__signin">
+              Dashboard
+            </Link>
+          ) : (
+            <>
+              <Link href="/register" className="site-nav__signin">
+                Register
+              </Link>
+              <Link href="/login" className="site-nav__login">
+                Login
+              </Link>
+            </>
+          )}
         </div>
       </nav>
 
@@ -43,8 +49,8 @@ export default async function Home() {
             confidence and master coding evaluations.
           </p>
           <div className="site-hero__actions">
-            <Link href="/register" className="site-button site-button--hero">
-              Get Started <span aria-hidden="true">→</span>
+            <Link href={session?.user ? "/practice" : "/register"} className="site-button site-button--hero">
+              {session?.user ? "Open Dashboard" : "Get Started"} <span aria-hidden="true">→</span>
             </Link>
           </div>
         </div>
@@ -224,7 +230,7 @@ export default async function Home() {
       >
         <div className="site-about__content">
           <div className="site-about__heading">
-            
+
             <h2 id="about-title">Developed by</h2>
           </div>
           <div className="site-builder-grid">
@@ -304,8 +310,8 @@ export default async function Home() {
               A focused place to practice coding questions, simulate online
               assessments, and learn from every attempt.
             </p>
-            <Link href="/register" className="site-footer__start">
-              Start practicing <span aria-hidden="true">→</span>
+            <Link href={session?.user ? "/practice" : "/register"} className="site-footer__start">
+              {session?.user ? "Open dashboard" : "Start practicing"} <span aria-hidden="true">→</span>
             </Link>
           </div>
           <div className="site-footer__links">
@@ -313,7 +319,7 @@ export default async function Home() {
               <strong>Platform</strong>
               <Link href="/practice">Coding practice</Link>
               <Link href="/questions">Question library</Link>
-              <Link href="/duck-insight">Duck Insight</Link>
+        
               <Link href="/profile">Progress dashboard</Link>
             </div>
             <div>
@@ -327,15 +333,20 @@ export default async function Home() {
             </div>
             <div>
               <strong>Account</strong>
-              <Link href="/register">Create an account</Link>
-              <Link href="/login">Log in</Link>
-              <a href="mailto:hello@oaduck.dev">Contact OA Duck</a>
+              {session?.user ? (
+                <Link href="/practice">Dashboard</Link>
+              ) : (
+                <>
+                  <Link href="/register">Create an account</Link>
+                  <Link href="/login">Log in</Link>
+                </>
+              )}
             </div>
           </div>
         </div>
         <div className="site-footer__bottom">
           <span>© 2026 OA Duck. Built for better coding practice.</span>
-          <span>Practice with purpose.</span>
+
         </div>
       </footer>
     </main>

@@ -6,7 +6,7 @@
     "predev": "prisma generate",
     "dev": "node --max-http-header-size=65536 node_modules/next/dist/bin/next dev",
     "build": "npm run build:docs && prisma generate && next build",
-    "build:docs": "npm --prefix docs-site run build && node scripts/copy-docs.mjs",
+    "build:docs": "npm --prefix docs-site ci --include=dev --no-audit --no-fund && npm --prefix docs-site run build && node scripts/copy-docs.mjs",
     "start": "next start",
     "lint": "eslint"
   },

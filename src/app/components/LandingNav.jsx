@@ -16,7 +16,7 @@ export default function LandingNav({ isSignedIn }) {
 
   return (
     <nav
-      className="relative z-20 flex flex-wrap items-center justify-between gap-x-4 gap-y-3 border-b border-white/10 bg-[#304d3c] px-5 py-4 sm:px-8 lg:px-14"
+      className="relative z-20 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-white/10 bg-[#304d3c] px-5 py-2 sm:gap-y-3 sm:px-8 sm:py-4 lg:px-14"
       aria-label="Main navigation"
     >
       <BrandLogo dark />
@@ -33,7 +33,7 @@ export default function LandingNav({ isSignedIn }) {
         {isSignedIn ? (
           <Link
             href="/practice"
-            className="rounded-md bg-[#e56b91] px-3 py-2 text-white transition-colors hover:bg-[#f080a3] sm:px-4"
+            className="rounded-md bg-[#e56b91] px-3 py-1.5 text-white transition-colors hover:bg-[#f080a3] sm:px-4 sm:py-2"
           >
             Dashboard
           </Link>
@@ -41,18 +41,18 @@ export default function LandingNav({ isSignedIn }) {
           <>
             <Link
               href="/register"
-              className="rounded-md bg-[#e56b91] px-3 py-2 text-white transition-colors hover:bg-[#f080a3] sm:px-4"
+              className="rounded-md bg-[#e56b91] px-3 py-1.5 text-white transition-colors hover:bg-[#f080a3] sm:px-4 sm:py-2"
             >
               Register
             </Link>
-            <Link href="/login" className="px-2 py-2 text-white">
+            <Link href="/login" className="px-2 py-1.5 text-white sm:py-2">
               Login
             </Link>
           </>
         )}
         <button
           type="button"
-          className="grid size-10 place-items-center rounded-md text-white transition hover:bg-white/10 sm:hidden"
+          className="grid size-9 place-items-center rounded-md text-white transition hover:bg-white/10 sm:hidden"
           aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={isOpen}
           aria-controls="landing-mobile-menu"

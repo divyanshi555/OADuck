@@ -1,3 +1,5 @@
+import ScrollReveal from "./ScrollReveal";
+
 const features = [
   {
     icon: "code",
@@ -120,10 +122,12 @@ export default function LandingFeatures() {
         </h2>
       </div>
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12">
-        {features.map((feature) => (
-          <article
-            className={`relative rounded-xl px-5 pb-5 pt-9 shadow-[0_8px_18px_rgba(70,37,83,.12)] sm:px-6 sm:pb-6 sm:pt-10 ${feature.cardClass}`}
+        {features.map((feature, index) => (
+          <ScrollReveal
+            as="article"
+            className={`relative rounded-xl px-5 pb-5 pt-9 shadow-[0_8px_18px_rgba(70,37,83,.12)] transition duration-300 ease-out hover:z-10 hover:scale-[1.03] hover:shadow-[0_14px_28px_rgba(70,37,83,.18)] motion-reduce:transition-none sm:px-6 sm:pb-6 sm:pt-10 ${feature.cardClass}`}
             key={feature.title}
+            style={{ transitionDelay: `${index * 70}ms` }}
           >
             <span
               className={`absolute -top-4 left-4 grid size-10 place-items-center rounded-full shadow-sm sm:left-5 sm:size-11 ${feature.iconClass}`}
@@ -152,7 +156,7 @@ export default function LandingFeatures() {
                 ))}
               </ul>
             )}
-          </article>
+          </ScrollReveal>
         ))}
       </div>
     </section>

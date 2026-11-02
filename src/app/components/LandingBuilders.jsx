@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ScrollReveal from "./ScrollReveal";
 
 const builders = [
   {
@@ -35,10 +36,13 @@ function SocialLink({ href, label, children }) {
 
 function BuilderCard({ builder }) {
   return (
-    <article className="grid overflow-hidden rounded-2xl bg-[#fffdf6] shadow-xl sm:grid-cols-[minmax(10rem,.85fr)_minmax(0,1.15fr)]">
-      <div className="h-60 min-h-0 bg-[#dfe7d7] sm:h-auto sm:min-h-64">
+    <ScrollReveal
+      as="article"
+      className="grid overflow-hidden rounded-2xl bg-[#fffdf6] shadow-xl sm:grid-cols-[minmax(10rem,.85fr)_minmax(0,1.15fr)]"
+    >
+      <div className="h-60 min-h-0 bg-[#dfe7d7] sm:h-auto sm:min-h-80">
         <Image
-          className="h-full min-h-0 w-full object-cover sm:min-h-64"
+          className="h-full min-h-0 w-full object-cover sm:min-h-80"
           src={builder.image}
           alt={builder.imageAlt}
           width={builder.imageSize.width}
@@ -47,16 +51,16 @@ function BuilderCard({ builder }) {
           sizes="(max-width: 760px) 100vw, 40vw"
         />
       </div>
-      <div className="flex min-w-0 flex-col justify-center p-3 sm:p-4">
-        <h3 className="text-base font-bold text-[#172033]">
+      <div className="flex min-w-0 flex-col justify-center p-4 sm:p-6">
+        <h3 className="text-lg font-bold text-[#172033]">
           {builder.name}
         </h3>
-        <p className="mt-2 border-t border-[#dfe8df] pt-2 text-sm leading-5 text-[#5f6d65] sm:mt-3 sm:pt-3 sm:text-sm">
+        <p className="mt-4 border-t border-[#dfe8df] pt-4 text-base leading-6 text-[#5f6d65]">
           Builds the assessment foundation behind OA Duck, from reliable code
           execution and evaluation to a focused testing environment.
         </p>
         <div
-          className="mt-3 flex gap-2 sm:mt-4"
+          className="mt-5 flex gap-3"
           aria-label={`${builder.name}'s social profiles`}
         >
           <SocialLink href={builder.linkedIn} label={`${builder.name} on LinkedIn`}>
@@ -79,14 +83,14 @@ function BuilderCard({ builder }) {
           </SocialLink>
         </div>
       </div>
-    </article>
+    </ScrollReveal>
   );
 }
 
 export default function LandingBuilders() {
   return (
     <section
-      className="bg-white px-5 py-12 sm:px-8 sm:py-16 lg:px-14"
+      className="flex min-h-svh flex-col justify-center bg-white px-5 pt-4 pb-12 sm:px-8 sm:pt-8 sm:pb-16 lg:px-14"
       id="about"
       aria-labelledby="about-title"
     >

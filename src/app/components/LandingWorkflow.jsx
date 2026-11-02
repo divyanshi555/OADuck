@@ -1,3 +1,6 @@
+import ScrollReveal from "./ScrollReveal";
+import WorkflowRoad from "./WorkflowRoad";
+
 const steps = [
   {
     title: "Login & Profile",
@@ -81,57 +84,18 @@ const cardColors = {
 const desktopRoad =
   "M-24 350 C78 335 111 191 202 199 S317 330 414 286 S517 186 597 214 S724 291 795 178 S894 80 947 155 S1050 245 1224 185";
 const mobileRoad =
-  "M180 -20 C180 70 78 68 78 154 S282 238 282 326 S78 410 78 498 S282 582 282 670 S78 754 78 842 S180 892 180 960";
-
-function Road({ path, mobile = false }) {
-  const roadPath = mobile
-    ? `${path} M-40 -20 H400 M-40 960 H400`
-    : path;
-
-  return (
-    <svg
-      className="absolute inset-0 h-full w-full"
-      viewBox={mobile ? "0 0 360 900" : "0 0 1200 440"}
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <path
-        d={roadPath}
-        fill="none"
-        stroke="#737a7d"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={mobile ? 40 : 58}
-      />
-      <path
-        d={roadPath}
-        fill="none"
-        stroke="#8b9294"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={mobile ? 32 : 48}
-      />
-      <path
-        d={roadPath}
-        fill="none"
-        stroke="#e3e5e3"
-        strokeDasharray={mobile ? "10 14" : "14 17"}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={mobile ? 2 : 2.5}
-      />
-    </svg>
-  );
-}
+  "M-40 154 C0 154 42 154 78 154 C156 154 282 214 282 326 S78 410 78 498 S282 582 282 670 S78 754 78 842 C78 884 99 914 135 932 S220 960 420 960";
 
 function WorkflowStep({ step, index, layout, mobile = false }) {
   return (
-    <li
+    <ScrollReveal
+      as="li"
       className={
         mobile
           ? `flex w-[84%] items-start gap-2 rounded-2xl border p-3 shadow-xl ${cardColors[step.color]} ${layout}`
           : `absolute ${layout.position} w-[19%] -translate-x-1/2 -translate-y-1/2 text-center`
       }
+      style={{ transitionDelay: `${index * 90}ms` }}
     >
       <span
         className={`relative z-10 grid shrink-0 place-items-center rounded-full border-[3px] bg-white font-bold shadow-md ${colors[step.color]} ${
@@ -154,22 +118,22 @@ function WorkflowStep({ step, index, layout, mobile = false }) {
           {step.description}
         </p>
       </div>
-    </li>
+    </ScrollReveal>
   );
 }
 
 export default function LandingWorkflow() {
   return (
     <section
-      className="relative bg-white px-5 py-14 sm:px-8 sm:py-20 lg:min-h-svh lg:px-0 lg:py-0"
+      className="relative bg-white px-5 py-14 sm:px-8 sm:py-20 lg:h-[calc(100svh-3.5rem)] lg:min-h-[34rem] lg:px-0 lg:py-0"
       id="how-it-works"
       aria-labelledby="process-title"
     >
       <div className="pointer-events-none absolute inset-0 lg:hidden">
-        <Road path={mobileRoad} mobile />
+        <WorkflowRoad path={mobileRoad} mobile />
       </div>
-      <div className="relative z-10 mx-auto w-full max-w-none lg:flex lg:min-h-svh lg:flex-col lg:justify-center lg:py-12">
-        <div className="mb-8 text-center sm:mb-12 lg:absolute lg:left-1/2 lg:top-[6%] lg:z-10 lg:mb-0 lg:w-full lg:-translate-x-1/2">
+      <div className="relative z-10 mx-auto w-full max-w-none lg:flex lg:h-full lg:min-h-0 lg:flex-col lg:justify-center">
+        <div className="mb-8 text-center sm:mb-12 lg:absolute lg:left-1/2 lg:top-[4%] lg:z-10 lg:mb-0 lg:w-full lg:-translate-x-1/2">
           <h2
             id="process-title"
             className="text-3xl font-bold tracking-tight text-[#172033] sm:text-4xl"
@@ -178,8 +142,8 @@ export default function LandingWorkflow() {
           </h2>
         </div>
 
-        <div className="relative hidden h-[min(100svh,58rem)] min-h-[38rem] lg:block">
-          <Road path={desktopRoad} />
+        <div className="relative hidden h-full min-h-0 lg:block">
+          <WorkflowRoad path={desktopRoad} />
           <ol className="absolute inset-0">
             {steps.map((step, index) => (
               <WorkflowStep

@@ -22,6 +22,38 @@ export default function WorkflowRoad({ path, mobile = false }) {
       return;
     }
 
+    if (mobile) {
+      let frame = 0;
+      const updateProgress = () => {
+        cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(() => {
+          const bounds = svg.getBoundingClientRect();
+          const progress = Math.min(
+            1,
+            Math.max(
+              0,
+              (window.innerHeight - bounds.top) /
+                (window.innerHeight + bounds.height),
+            ),
+          );
+          const dashOffset = String(1 - progress);
+          paths.forEach((roadPath) =>
+            roadPath.setAttribute("stroke-dashoffset", dashOffset),
+          );
+        });
+      };
+
+      updateProgress();
+      window.addEventListener("scroll", updateProgress, { passive: true });
+      window.addEventListener("resize", updateProgress);
+
+      return () => {
+        cancelAnimationFrame(frame);
+        window.removeEventListener("scroll", updateProgress);
+        window.removeEventListener("resize", updateProgress);
+      };
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
@@ -37,7 +69,7 @@ export default function WorkflowRoad({ path, mobile = false }) {
 
     observer.observe(svg);
     return () => observer.disconnect();
-  }, []);
+  }, [mobile]);
 
   const roadPath = path;
   const pathProps = {
@@ -77,7 +109,11 @@ export default function WorkflowRoad({ path, mobile = false }) {
             strokeDasharray="1"
             strokeDashoffset="1"
             strokeLinecap="round"
-            className="transition-[stroke-dashoffset] duration-[1800ms] ease-out motion-reduce:transition-none"
+            className={
+              mobile
+                ? "transition-none"
+                : "transition-[stroke-dashoffset] duration-[1800ms] ease-out motion-reduce:transition-none"
+            }
           />
         </mask>
       </defs>
@@ -88,7 +124,11 @@ export default function WorkflowRoad({ path, mobile = false }) {
           }}
           d={roadPath}
           {...pathProps}
-          className="transition-[stroke-dashoffset] duration-[1800ms] ease-out motion-reduce:transition-none"
+          className={
+            mobile
+              ? "transition-none"
+              : "transition-[stroke-dashoffset] duration-[1800ms] ease-out motion-reduce:transition-none"
+          }
           stroke="#62696b"
           strokeWidth={mobile ? 56 : 68}
         />
@@ -98,7 +138,11 @@ export default function WorkflowRoad({ path, mobile = false }) {
           }}
           d={roadPath}
           {...pathProps}
-          className="transition-[stroke-dashoffset] duration-[1800ms] ease-out motion-reduce:transition-none"
+          className={
+            mobile
+              ? "transition-none"
+              : "transition-[stroke-dashoffset] duration-[1800ms] ease-out motion-reduce:transition-none"
+          }
           stroke="#858c8e"
           strokeWidth={mobile ? 46 : 56}
         />

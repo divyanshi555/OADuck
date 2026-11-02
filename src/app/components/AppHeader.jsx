@@ -95,13 +95,6 @@ export default function AppHeader({ assessmentTimer, persistentRoot = false }) {
             <option value="USER" style={{ color: "#000" }}>User View</option>
           </select>
         )}
-        {!assessmentTimer && session?.user && (
-          <div className="app-header__streak" title={`${currentStreak} day current streak`} aria-label={`${currentStreak} day current streak`}>
-            <span aria-hidden="true">🔥</span>
-            <strong>{currentStreak}</strong>
-            <span className="hidden sm:inline">day streak</span>
-          </div>
-        )}
         <ProfileMenu />
         <button className="grid h-10 w-10 place-items-center bg-transparent text-[#f7f5ed] transition hover:text-[#f5c75d] active:scale-95 md:hidden" type="button" onClick={openSidebar} aria-label="Open navigation">
           <svg className="h-5 w-5 fill-none stroke-current [stroke-linecap:round] [stroke-width:1.7]" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" /></svg>

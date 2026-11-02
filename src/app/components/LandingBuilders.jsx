@@ -3,20 +3,20 @@ import ScrollReveal from "./ScrollReveal";
 
 const builders = [
   {
-    name: "Ankur Singh",
-    image: "/Ankur.jpeg",
-    imageAlt: "Ankur",
-    imageSize: { width: 1200, height: 900 },
-    linkedIn: "https://www.linkedin.com/in/ankurrr27/",
-    github: "https://github.com/Ankurrr27/",
-  },
-  {
     name: "Divyanshi Purohit",
     image: "/Divya.jpg",
     imageAlt: "Divya",
     imageSize: { width: 1000, height: 1000 },
     linkedIn: "https://www.linkedin.com/in/divyanshipurohit555/",
     github: "https://github.com/Divyansh-Purohit",
+  },
+  {
+    name: "Ankur Singh",
+    image: "/Ankur.jpeg",
+    imageAlt: "Ankur",
+    imageSize: { width: 1200, height: 900 },
+    linkedIn: "https://www.linkedin.com/in/ankurrr27/",
+    github: "https://github.com/Ankurrr27/",
   },
 ];
 
@@ -38,11 +38,11 @@ function BuilderCard({ builder }) {
   return (
     <ScrollReveal
       as="article"
-      className="grid overflow-hidden rounded-2xl bg-[#fffdf6] shadow-xl sm:grid-cols-[minmax(10rem,.85fr)_minmax(0,1.15fr)]"
+      className="mx-auto grid w-[calc(100%-1rem)] grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)] overflow-hidden rounded-2xl bg-[#fffdf6] shadow-xl sm:mx-0 sm:w-full sm:grid-cols-[minmax(10rem,.85fr)_minmax(0,1.15fr)]"
     >
-      <div className="h-60 min-h-0 bg-[#dfe7d7] sm:h-auto sm:min-h-80">
+      <div className="min-h-60 bg-[#dfe7d7] sm:min-h-64">
         <Image
-          className="h-full min-h-0 w-full object-cover sm:min-h-80"
+          className="h-full min-h-60 w-full object-cover sm:min-h-64"
           src={builder.image}
           alt={builder.imageAlt}
           width={builder.imageSize.width}
@@ -51,16 +51,16 @@ function BuilderCard({ builder }) {
           sizes="(max-width: 760px) 100vw, 40vw"
         />
       </div>
-      <div className="flex min-w-0 flex-col justify-center p-4 sm:p-6">
-        <h3 className="text-lg font-bold text-[#172033]">
+      <div className="flex min-w-0 flex-col justify-center p-3 sm:p-4">
+        <h3 className="text-xl font-bold text-[#172033] sm:text-2xl lg:text-lg">
           {builder.name}
         </h3>
-        <p className="mt-4 border-t border-[#dfe8df] pt-4 text-base leading-6 text-[#5f6d65]">
+        <p className="mt-2 border-t border-[#dfe8df] pt-2 text-xs leading-4 text-[#5f6d65] sm:mt-4 sm:pt-4 sm:text-base sm:leading-6">
           Builds the assessment foundation behind OA Duck, from reliable code
           execution and evaluation to a focused testing environment.
         </p>
         <div
-          className="mt-5 flex gap-3"
+          className="mt-3 flex gap-2 sm:mt-5 sm:gap-3"
           aria-label={`${builder.name}'s social profiles`}
         >
           <SocialLink href={builder.linkedIn} label={`${builder.name} on LinkedIn`}>
@@ -90,20 +90,20 @@ function BuilderCard({ builder }) {
 export default function LandingBuilders() {
   return (
     <section
-      className="flex min-h-svh flex-col justify-center bg-white px-5 pt-4 pb-12 sm:px-8 sm:pt-8 sm:pb-16 lg:px-14"
+      className="flex-1 bg-[#304d3c] px-5 pt-4 pb-7 sm:px-8 sm:py-9 lg:px-14"
       id="about"
       aria-labelledby="about-title"
     >
       <div className="mx-auto w-full max-w-7xl">
-        <div className="mb-8 text-center sm:mb-10">
+        <div className="px-2 pt-2 pb-6 text-center sm:pt-5 sm:pb-10">
           <h2
             id="about-title"
-            className="text-3xl font-bold tracking-tight text-[#172033] sm:text-4xl"
+            className="text-4xl font-bold tracking-tight text-white sm:text-4xl"
           >
             Developed by
           </h2>
         </div>
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid gap-5 lg:grid-cols-2">
           {builders.map((builder) => (
             <BuilderCard key={builder.name} builder={builder} />
           ))}

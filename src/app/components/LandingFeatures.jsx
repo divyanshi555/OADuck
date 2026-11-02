@@ -4,7 +4,7 @@ const features = [
   {
     icon: "code",
     iconClass: "bg-[#29252c] text-white",
-    cardClass: "bg-[#f0eef0]",
+    cardClass: "bg-[#211f23]",
     title: "Multi-Language Support",
     description: "Execute natively in C++20, Java 17, and Python 3.11.",
     languages: ["C++", "Python", "Java"],
@@ -12,7 +12,7 @@ const features = [
   {
     icon: "shield",
     iconClass: "bg-[#e80b7a] text-white",
-    cardClass: "bg-[#fff0f7]",
+    cardClass: "bg-[#321426]",
     title: "Constrained Environment",
     description:
       "Full-screen focus lock, copy and paste disabled, tab-switch warnings, and reliable countdown timers. Practice under authentic high-pressure test conditions.",
@@ -20,14 +20,14 @@ const features = [
   {
     icon: "shuffle",
     iconClass: "bg-[#4be875] text-[#173521]",
-    cardClass: "bg-[#effcf2]",
+    cardClass: "bg-[#172b1d]",
     title: "Multiple Modes",
     description: "Random pick or choose the question you want to attempt.",
   },
   {
     icon: "search",
     iconClass: "bg-[#1458d4] text-white",
-    cardClass: "bg-[#eef4ff]",
+    cardClass: "bg-[#17233a]",
     title: "Diagnostic Insights",
     description:
       "AI-based solution walkthroughs, complexity analysis, and bottleneck detection after a wrong submission.",
@@ -35,7 +35,7 @@ const features = [
   {
     icon: "chart",
     iconClass: "bg-[#f5a21b] text-white",
-    cardClass: "bg-[#fff6e8]",
+    cardClass: "bg-[#332515]",
     title: "Dashboard",
     description:
       "Submission velocity graphs, accuracy heatmaps, violation history, and a readiness score tailored per company tier.",
@@ -43,7 +43,7 @@ const features = [
   {
     icon: "checklist",
     iconClass: "bg-[#0f9f88] text-white",
-    cardClass: "bg-[#eaf8f5]",
+    cardClass: "bg-[#142c29]",
     title: "Test Case Results",
     description:
       "Run your solution against test cases and see which cases pass or fail.",
@@ -109,14 +109,14 @@ function FeatureIcon({ name }) {
 export default function LandingFeatures() {
   return (
     <section
-      className="flex min-h-svh flex-col justify-center bg-white px-5 py-12 sm:px-8 sm:py-14 lg:px-14"
+      className="flex min-h-svh flex-col justify-center bg-black px-5 py-8 sm:px-8 sm:py-10 lg:h-svh lg:px-14 lg:py-6"
       id="features"
       aria-labelledby="features-title"
     >
       <div className="mb-10 text-center sm:mb-14">
         <h2
           id="features-title"
-          className="text-3xl font-bold tracking-tight text-[#21162a] sm:text-4xl lg:text-5xl"
+          className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl"
         >
           Features
         </h2>
@@ -124,38 +124,41 @@ export default function LandingFeatures() {
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12">
         {features.map((feature, index) => (
           <ScrollReveal
-            as="article"
-            className={`relative rounded-xl px-5 pb-5 pt-9 shadow-[0_8px_18px_rgba(70,37,83,.12)] transition duration-300 ease-out hover:z-10 hover:scale-[1.03] hover:shadow-[0_14px_28px_rgba(70,37,83,.18)] motion-reduce:transition-none sm:px-6 sm:pb-6 sm:pt-10 ${feature.cardClass}`}
+            className="h-full"
             key={feature.title}
             style={{ transitionDelay: `${index * 70}ms` }}
           >
-            <span
-              className={`absolute -top-4 left-4 grid size-10 place-items-center rounded-full shadow-sm sm:left-5 sm:size-11 ${feature.iconClass}`}
-              aria-hidden="true"
+            <article
+              className={`group relative h-full rounded-xl px-5 pb-5 pt-9 shadow-[0_8px_18px_rgba(0,0,0,.35)] transition-[transform,box-shadow,filter] duration-300 ease-out hover:z-10 hover:-translate-y-2 hover:scale-[1.05] hover:brightness-110 hover:shadow-[0_18px_36px_rgba(0,0,0,.65)] motion-reduce:transition-none sm:px-6 sm:pb-6 sm:pt-10 ${feature.cardClass}`}
             >
-              <FeatureIcon name={feature.icon} />
-            </span>
-            <h3 className="text-base font-bold text-[#211b21] sm:text-lg">
-              {feature.title}
-            </h3>
-            <p className="mt-3 text-sm leading-5 text-[#514a52]">
-              {feature.description}
-            </p>
-            {feature.languages && (
-              <ul
-                className="mt-4 flex flex-wrap gap-2 text-xs font-bold text-[#354056]"
-                aria-label="Supported languages"
+              <span
+                className={`absolute -top-4 left-4 grid size-10 place-items-center rounded-full shadow-sm transition-transform duration-300 group-hover:rotate-12 group-hover:scale-125 motion-reduce:transition-none sm:left-5 sm:size-11 ${feature.iconClass}`}
+                aria-hidden="true"
               >
-                {feature.languages.map((language) => (
-                  <li
-                    className="rounded-full bg-white/80 px-2.5 py-1"
-                    key={language}
-                  >
-                    {language}
-                  </li>
-                ))}
-              </ul>
-            )}
+                <FeatureIcon name={feature.icon} />
+              </span>
+              <h3 className="text-base font-bold text-white sm:text-lg">
+                {feature.title}
+              </h3>
+              <p className="mt-3 text-sm leading-5 text-[#d0d2d7]">
+                {feature.description}
+              </p>
+              {feature.languages && (
+                <ul
+                  className="mt-4 flex flex-wrap gap-2 text-xs font-bold text-[#e3e5e8]"
+                  aria-label="Supported languages"
+                >
+                  {feature.languages.map((language) => (
+                    <li
+                      className="rounded-full bg-white/10 px-2.5 py-1"
+                      key={language}
+                    >
+                      {language}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </article>
           </ScrollReveal>
         ))}
       </div>

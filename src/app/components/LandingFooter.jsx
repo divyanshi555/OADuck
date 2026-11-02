@@ -5,8 +5,8 @@ const DOCS_URL = process.env.NEXT_PUBLIC_DOCS_URL || "/docs/overview";
 
 export default function LandingFooter({ isSignedIn }) {
   return (
-    <footer className="flex flex-col justify-between bg-[#304d3c] px-5 py-7 text-[#c6d4ca] sm:px-8 sm:py-9 lg:px-14">
-      <div className="mx-auto mb-5 grid w-full max-w-7xl gap-6 sm:mb-7 sm:gap-8 lg:grid-cols-[minmax(14rem,.9fr)_minmax(0,1.5fr)] lg:gap-12">
+    <footer className="flex flex-1 flex-col justify-between bg-[#304d3c] px-5 py-5 text-[#c6d4ca] sm:px-8 sm:py-7 lg:px-14">
+      <div className="mx-auto mb-4 grid w-full max-w-7xl gap-5 sm:mb-5 sm:gap-7 lg:grid-cols-[minmax(14rem,.9fr)_minmax(0,1.5fr)] lg:gap-10">
         <div>
           <BrandLogo dark />
           <p className="mt-3 max-w-sm text-sm leading-5 text-[#c1d0c4]">
@@ -21,7 +21,7 @@ export default function LandingFooter({ isSignedIn }) {
             <span aria-hidden="true">→</span>
           </Link>
         </div>
-        <div className="grid grid-cols-2 gap-x-5 gap-y-6 text-sm sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-x-5 gap-y-5 text-sm sm:grid-cols-3">
           <div className="grid content-start gap-2">
             <strong className="text-xs uppercase tracking-widest text-white">
               Platform
@@ -79,7 +79,7 @@ export default function LandingFooter({ isSignedIn }) {
           </div>
         </div>
       </div>
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 border-t border-white/20 pt-3 text-xs text-[#a9c0ae] sm:flex-row sm:justify-between">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 border-t border-white/20 pt-2 text-xs text-[#a9c0ae] sm:flex-row sm:justify-between">
         <span>© 2026 OA Duck. Built for better coding practice.</span>
       </div>
     </footer>

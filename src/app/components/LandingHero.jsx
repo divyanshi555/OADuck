@@ -9,7 +9,7 @@ export default function LandingHero({ isSignedIn }) {
       aria-labelledby="site-hero-title"
     >
       <div className="mx-auto grid min-h-[calc(100svh-5rem)] w-full max-w-7xl items-center gap-2 pt-10 pb-4 sm:gap-8 sm:py-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(14rem,.9fr)] lg:gap-5 lg:py-8 xl:gap-8">
-        <div className="mx-auto w-full max-w-xl text-left lg:mx-0 lg:ml-4 xl:ml-6">
+        <div className="mx-auto w-full max-w-xl text-left lg:mx-0 lg:ml-8 xl:ml-10">
           <h1
             id="site-hero-title"
             className="font-[var(--font-space-grotesk),sans-serif] text-2xl font-bold leading-[1.15] tracking-[-.035em] text-[#172033] sm:text-4xl sm:leading-[1.2] lg:text-3xl lg:leading-tight"
@@ -34,7 +34,7 @@ export default function LandingHero({ isSignedIn }) {
           </Link>
         </div>
 
-        <div className="relative mx-auto grid min-h-[8rem] w-full max-w-sm place-items-center sm:min-h-[22rem] lg:min-h-[22rem]">
+        <div className="relative mx-auto grid min-h-[8rem] w-full max-w-sm place-items-center sm:min-h-[22rem] lg:min-h-[22rem] lg:-translate-x-4 xl:-translate-x-6">
           <Image
             className="relative z-10 h-auto w-[min(48%,10rem)] drop-shadow-[0_16px_14px_rgba(80,61,35,.12)] sm:w-[min(72%,18rem)] lg:w-[min(100%,15rem)]"
             src="/duck-hero.png"

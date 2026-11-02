@@ -84,7 +84,7 @@ export default function WorkflowRoad({ path, mobile = false }) {
   return (
     <svg
       ref={svgRef}
-      className={`absolute inset-x-0 w-full ${mobile ? "-top-12 h-[calc(100%+3rem)] overflow-hidden" : "inset-y-0 h-full"}`}
+      className={`pointer-events-auto absolute inset-x-0 w-full ${mobile ? "-top-12 h-[calc(100%+3rem)] overflow-hidden" : "inset-y-0 h-full"}`}
       viewBox={mobile ? "0 0 360 1000" : "0 0 1200 440"}
       preserveAspectRatio="none"
       aria-hidden="true"

@@ -125,7 +125,7 @@ function WorkflowStep({ step, index, layout, mobile = false }) {
 export default function LandingWorkflow() {
   return (
     <section
-      className="relative bg-white px-5 py-14 sm:px-8 sm:py-20 lg:h-[calc(100svh-3.5rem)] lg:min-h-[34rem] lg:px-0 lg:py-0"
+      className="relative bg-white px-5 py-14 sm:px-8 sm:py-20 lg:h-svh lg:min-h-[38rem] lg:px-0 lg:py-0"
       id="how-it-works"
       aria-labelledby="process-title"
     >

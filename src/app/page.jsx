@@ -16,8 +16,10 @@ export default async function Home() {
       <LandingHero isSignedIn={isSignedIn} />
       <LandingFeatures />
       <LandingWorkflow />
-      <LandingBuilders />
-      <LandingFooter isSignedIn={isSignedIn} />
+      <div className="landing-closing-sections flex min-h-svh flex-col">
+        <LandingBuilders />
+        <LandingFooter isSignedIn={isSignedIn} />
+      </div>
     </main>
   );
 }

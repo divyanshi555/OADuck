@@ -70,6 +70,14 @@ const colors = {
   amber: "border-amber-500 text-amber-700",
 };
 
+const cardColors = {
+  sky: "border-sky-200 bg-sky-50/95",
+  violet: "border-violet-200 bg-violet-50/95",
+  emerald: "border-emerald-200 bg-emerald-50/95",
+  rose: "border-rose-200 bg-rose-50/95",
+  amber: "border-amber-200 bg-amber-50/95",
+};
+
 const desktopRoad =
   "M-24 350 C78 335 111 191 202 199 S317 330 414 286 S517 186 597 214 S724 291 795 178 S894 80 947 155 S1050 245 1224 185";
 const mobileRoad =
@@ -121,7 +129,7 @@ function WorkflowStep({ step, index, layout, mobile = false }) {
     <li
       className={
         mobile
-          ? `flex w-[84%] items-start gap-2 rounded-2xl border border-[#d7e0ea] bg-white/95 p-3 shadow-xl ${layout}`
+          ? `flex w-[84%] items-start gap-2 rounded-2xl border p-3 shadow-xl ${cardColors[step.color]} ${layout}`
           : `absolute ${layout.position} w-[19%] -translate-x-1/2 -translate-y-1/2 text-center`
       }
     >
@@ -136,7 +144,7 @@ function WorkflowStep({ step, index, layout, mobile = false }) {
         className={
           mobile
             ? ""
-            : `absolute ${layout.card} flex min-h-[10.25rem] w-[min(20rem,19vw)] flex-col justify-center rounded-2xl border border-[#d7e0ea] bg-white/95 p-4 text-center shadow-xl`
+            : `absolute ${layout.card} flex min-h-[10.25rem] w-[min(20rem,19vw)] flex-col justify-center rounded-2xl border p-4 text-center shadow-xl ${cardColors[step.color]}`
         }
       >
         <h3 className="text-sm font-bold text-[#172033] lg:uppercase">

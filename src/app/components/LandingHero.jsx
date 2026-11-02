@@ -14,8 +14,10 @@ export default function LandingHero({ isSignedIn }) {
             id="site-hero-title"
             className="font-[var(--font-space-grotesk),sans-serif] text-2xl font-bold leading-[1.2] tracking-[-.035em] text-[#172033] sm:text-4xl lg:text-3xl lg:leading-tight"
           >
-            Hi, I&apos;m Duck! Do you have to face frequent OAs and want to
-            practice and train yourself in a constrained environment?
+            Hi, I&apos;m Duck!
+            <br />
+            Do you have to face frequent OAs and want to practice and train
+            yourself in a constrained environment?
           </h1>
           <p className="mt-3 text-sm leading-5 text-[#78838d] sm:mt-5 sm:text-lg sm:leading-7 lg:mt-4 lg:text-base lg:leading-6">
             Welcome to <strong>OADuck</strong> — a dedicated platform that

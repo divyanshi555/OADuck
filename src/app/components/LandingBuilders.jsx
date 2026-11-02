@@ -35,10 +35,10 @@ function SocialLink({ href, label, children }) {
 
 function BuilderCard({ builder }) {
   return (
-    <article className="grid overflow-hidden rounded-2xl bg-[#fffdf6] shadow-xl sm:grid-cols-[minmax(10rem,.8fr)_minmax(0,1.2fr)]">
-      <div className="h-48 min-h-0 bg-[#dfe7d7] sm:h-auto sm:min-h-72">
+    <article className="grid overflow-hidden rounded-2xl bg-[#fffdf6] shadow-xl sm:grid-cols-[minmax(10rem,.85fr)_minmax(0,1.15fr)]">
+      <div className="h-60 min-h-0 bg-[#dfe7d7] sm:h-auto sm:min-h-64">
         <Image
-          className="h-full min-h-0 w-full object-cover sm:min-h-72"
+          className="h-full min-h-0 w-full object-cover sm:min-h-64"
           src={builder.image}
           alt={builder.imageAlt}
           width={builder.imageSize.width}
@@ -47,16 +47,16 @@ function BuilderCard({ builder }) {
           sizes="(max-width: 760px) 100vw, 40vw"
         />
       </div>
-      <div className="flex min-w-0 flex-col justify-center p-4 sm:p-6">
-        <h3 className="text-base font-bold text-[#172033] sm:text-lg">
+      <div className="flex min-w-0 flex-col justify-center p-3 sm:p-4">
+        <h3 className="text-base font-bold text-[#172033]">
           {builder.name}
         </h3>
-        <p className="mt-3 border-t border-[#dfe8df] pt-3 text-sm leading-5 text-[#5f6d65] sm:mt-4 sm:pt-4 sm:text-base sm:leading-6">
+        <p className="mt-2 border-t border-[#dfe8df] pt-2 text-sm leading-5 text-[#5f6d65] sm:mt-3 sm:pt-3 sm:text-sm">
           Builds the assessment foundation behind OA Duck, from reliable code
           execution and evaluation to a focused testing environment.
         </p>
         <div
-          className="mt-4 flex gap-2 sm:mt-5 sm:gap-3"
+          className="mt-3 flex gap-2 sm:mt-4"
           aria-label={`${builder.name}'s social profiles`}
         >
           <SocialLink href={builder.linkedIn} label={`${builder.name} on LinkedIn`}>

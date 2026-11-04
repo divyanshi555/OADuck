@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="570" viewBox="0 0 1040 570" role="img" aria-labelledby="title description">
+  <title id="title">OA Duck system architecture</title>
+  <desc id="description">The browser communicates with the Next.js application. Next.js uses Auth.js, Prisma with Neon PostgreSQL, Judge0 for code execution, and LangChain with Google Gemini for Duck Insight. A separately built Docusaurus site is served under docs.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#42665a"/>
+    </marker>
+    <style>
+      .box{fill:#fffefa;stroke:#9bb8a9;stroke-width:2}
+      .app{fill:#eaf4ed;stroke:#176a5a}
+      .external{fill:#f4f7f3;stroke:#93aa9e}
+      .title{font:700 17px system-ui,sans-serif;fill:#17221e}
+      .detail{font:13px system-ui,sans-serif;fill:#506058}
+      .label{font:12px system-ui,sans-serif;fill:#42665a}
+      .line{fill:none;stroke:#42665a;stroke-width:2;marker-end:url(#arrow)}
+      .dashed{stroke-dasharray:6 5}
+    </style>
+  </defs>
+  <rect x="18" y="18" width="1004" height="534" rx="18" fill="#f5f4ef"/>
+
+  <rect class="box" x="48" y="206" width="192" height="116" rx="12"/>
+  <text class="title" x="70" y="239">Browser</text>
+  <text class="detail" x="70" y="265">React UI / Monaco editor</text>
+  <text class="detail" x="70" y="287">Same-origin HTTP requests</text>
+
+  <rect class="box app" x="326" y="154" width="310" height="220" rx="14"/>
+  <text class="title" x="350" y="188">Next.js App Router</text>
+  <text class="detail" x="350" y="216">Pages + API route handlers</text>
+  <text class="detail" x="350" y="240">Auth.js session / role checks</text>
+  <text class="detail" x="350" y="264">Application request orchestration</text>
+  <text class="detail" x="350" y="312">Prisma Client + Neon adapter</text>
+  <text class="detail" x="350" y="337">Run · Submit · Assessments · Insight</text>
+
+  <rect class="box external" x="770" y="50" width="210" height="88" rx="12"/>
+  <text class="title" x="792" y="82">Google OAuth</text>
+  <text class="detail" x="792" y="108">Auth.js provider</text>
+
+  <rect class="box external" x="770" y="174" width="210" height="92" rx="12"/>
+  <text class="title" x="792" y="207">Neon PostgreSQL</text>
+  <text class="detail" x="792" y="233">Users, problems, sessions, results</text>
+
+  <rect class="box external" x="770" y="306" width="210" height="86" rx="12"/>
+  <text class="title" x="792" y="339">Judge0 CE</text>
+  <text class="detail" x="792" y="365">Compile / execute test input</text>
+
+  <rect class="box external" x="770" y="424" width="210" height="86" rx="12"/>
+  <text class="title" x="792" y="457">LangChain → Gemini</text>
+  <text class="detail" x="792" y="483">Duck Insight structured feedback</text>
+
+  <rect class="box" x="48" y="424" width="310" height="86" rx="12"/>
+  <text class="title" x="70" y="457">Docusaurus 3</text>
+  <text class="detail" x="70" y="483">Static docs copied to public/docs</text>
+
+  <path class="line" d="M240 264H315"/>
+  <text class="label" x="248" y="250">HTTPS / JSON</text>
+  <path class="line" d="M636 212H758"/>
+  <text class="label" x="654" y="198">OAuth</text>
+  <path class="line" d="M636 250H758"/>
+  <text class="label" x="650" y="239">Prisma queries</text>
+  <path class="line" d="M636 320H758"/>
+  <text class="label" x="663" y="309">HTTP API</text>
+  <path class="line" d="M636 350C700 350 704 467 758 467"/>
+  <text class="label" x="650" y="408">AI request</text>
+  <path class="line dashed" d="M358 467H500V386"/>
+  <text class="label" x="376" y="453">Build → static assets</text>
+</svg>

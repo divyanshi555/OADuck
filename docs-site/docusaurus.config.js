@@ -37,6 +37,10 @@ const config = {
   projectName: 'oaduck',
 
   onBrokenLinks: 'throw',
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -58,20 +62,7 @@ const config = {
           // Remove this to remove the "edit this page" links.
           editUrl: undefined,
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: undefined,
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -95,19 +86,6 @@ const config = {
           alt: 'OA Duck logo',
           src: 'img/oaduck.png',
         },
-        items: [
-          {
-            type: 'docSidebar',
-            sidebarId: 'appSidebar',
-            position: 'left',
-          label: 'App guide',
-          },
-          {to: '/overview', label: 'Overview', position: 'left'},
-          {to: '/getting-started', label: 'Getting started', position: 'left'},
-          {to: '/architecture', label: 'Architecture', position: 'left'},
-          {to: '/features', label: 'Features', position: 'left'},
-          {to: '/api-reference', label: 'API', position: 'left'},
-        ],
       },
       footer: {
         style: 'dark',
@@ -116,19 +94,20 @@ const config = {
             title: 'Docs',
             items: [
               {label: 'Overview', to: '/overview'},
-              {label: 'Getting started', to: '/getting-started'},
-              {label: 'Product flow', to: '/product-flow'},
-              {label: 'Features', to: '/features'},
-              {label: 'Admin guide', to: '/admin-guide'},
-            ],
-          },
-          {
-            title: 'Engineering',
-            items: [
+              {label: 'Technology stack', to: '/technology-stack'},
               {label: 'Architecture', to: '/architecture'},
-              {label: 'Data model', to: '/data-model'},
+              {label: 'Project folder structure', to: '/project-structure'},
+              {label: 'Database design', to: '/database-design'},
+              {label: 'Authentication and authorization', to: '/authentication-authorization'},
               {label: 'API reference', to: '/api-reference'},
-              {label: 'Development', to: '/development'},
+              {label: 'Question management', to: '/question-management'},
+              {label: 'Assessment and practice engine', to: '/assessment-practice-engine'},
+              {label: 'Secure assessment and violations', to: '/secure-assessment-violations'},
+              {label: 'Judge0 code execution', to: '/judge0-code-execution'},
+              {label: 'Duck Insight', to: '/duck-insight'},
+              {label: 'Dashboard and progress tracking', to: '/dashboard-progress'},
+              {label: 'Known limitations and future improvements', to: '/limitations-future-improvements'},
+              {label: 'Environment variables and configuration', to: '/environment-configuration'},
             ],
           },
           {
@@ -137,14 +116,6 @@ const config = {
               {label: 'OA Duck workspace', href: appUrl},
               {label: 'Practice', href: `${appUrl}/practice`},
               {label: 'Question library', href: `${appUrl}/questions`},
-            ],
-          },
-          {
-            title: 'Support',
-            items: [
-              {label: 'Contact the builder', href: 'mailto:hello@oaduck.dev'},
-              {label: 'Security notes', to: '/security'},
-              {label: 'Testing and debugging', to: '/testing-debugging'},
             ],
           },
         ],

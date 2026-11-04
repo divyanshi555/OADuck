@@ -1,40 +1,29 @@
 ---
-id: architecture
-title: Architecture
-sidebar_position: 1
+title: System Architecture
+sidebar_position: 3
 ---
 
-# Architecture
+# System Architecture
 
-## Application layers
+![OA Duck system architecture](/img/oaduck-architecture.svg)
 
-```text
-Browser
-  ├─ Next.js App Router pages and client components
-  ├─ NextAuth session provider
-  └─ Monaco/editor and assessment monitoring UI
-        ↓
-Next.js route handlers and server components
-  ├─ Authentication and authorization
-  ├─ Question, profile, assessment, and submission APIs
-  ├─ Judge0 execution integration
-  └─ Duck Insight orchestration
-        ↓
-Prisma Client → PostgreSQL
-```
+The browser UI and backend API are parts of the same Next.js App Router application. API route handlers enforce the signed-in user and role checks, validate requests, and coordinate database and external-service work. The browser does not call Judge0 or Gemini directly.
 
-## Route organization
+## Main modules
 
-The application uses the App Router under `src/app`. A folder with `page.jsx` becomes a UI route; a folder with `route.js` becomes an HTTP route handler. Shared UI lives in `src/app/components`, and server-side integrations live under `src/lib`.
+- **App Router UI** (`src/app/`): landing, authentication, question library, coding workspace, profile, and admin pages.
+- **API routes** (`src/app/api/`): question and profile data, authentication, administration, code run/submission, assessment lifecycle and monitoring, and Duck Insight.
+- **Shared server libraries** (`src/lib/`): Prisma client, Judge0 HTTP client, supported-language helpers, and the Duck Insight prompt/schema integration.
+- **Persistence** (`prisma/`): PostgreSQL schema and migrations for users, questions, test cases, assessment sessions, violations, hints, and submissions.
+- **External services**: Neon-hosted PostgreSQL, Judge0 CE, Google OAuth, and the Gemini API.
+- **Documentation site** (`docs-site/`): a separate Docusaurus build copied to `public/docs`; Next.js rewrites serve the generated pages under `/docs`.
 
-## Authentication boundary
+## Request and response lifecycle
 
-`src/auth.js` owns the NextAuth configuration and database-backed credentials authorization. `src/middleware.js` applies route-level protection before requests reach protected pages. Client components read the session with `useSession` where they need role or identity information.
+1. The browser loads an App Router page and sends same-origin requests to Next.js route handlers.
+2. Auth.js resolves the JWT session. Handlers check the user or admin role as appropriate, then validate request data.
+3. For application data, the handler uses Prisma Client with the Neon adapter to read or update PostgreSQL. Results are returned to the browser as JSON.
+4. For **Run** and **Submit**, the handler loads permitted test cases from PostgreSQL, sends source code and input to Judge0, polls its submission endpoint, and returns normalized output/verdicts. Submit evaluates stored cases and persists the resulting `Submission`.
+5. For **Duck Insight**, the handler loads an eligible completed assessment submission, problem details, and a same-language optimal solution from PostgreSQL. LangChain sends that context to Google Gemini; the Zod-validated analysis is returned as JSON.
 
-## Data and execution boundary
-
-Prisma models represent users, questions, test cases, sessions, violations, hints, doubt queries, optimal solutions, and submissions. Code execution is delegated to the Judge0 integration; the app remains responsible for request validation, persistence, and presenting the result.
-
-## UI navigation
-
-`NavigationPersistence` renders the shared workspace header/sidebar only when the client session is definitively authenticated. This prevents the private shell from flashing during an unauthenticated session-loading state.
+Assessment start, completion, and violation endpoints update the session and violation records. The browser reports supported monitoring events; the server stores the event and applies the session mode and termination policy.

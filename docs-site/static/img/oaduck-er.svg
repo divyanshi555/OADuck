@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="930" viewBox="0 0 1240 930" role="img" aria-labelledby="title description">
+  <title id="title">OA Duck entity relationship diagram</title>
+  <desc id="description">ER diagram for the ten Prisma models: User, Question, Session, Submission, TestCase, OptimalSolution, Hint, SessionHintView, DoubtQuery, and AssessmentViolation. Lines show foreign-key relationships and one-to-many cardinality.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f5f4ef}
+      .entity{fill:#fffefa;stroke:#176a5a;stroke-width:2}
+      .head{fill:#eaf4ed}
+      .name{font:700 15px system-ui,sans-serif;fill:#123f36}
+      .field{font:12px ui-monospace,monospace;fill:#283b33}
+      .note{font:12px system-ui,sans-serif;fill:#506058}
+      .edge{fill:none;stroke:#567c6c;stroke-width:1.6}
+      .edgeText{font:11px system-ui,sans-serif;fill:#42665a}
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1240" height="930" rx="18"/>
+
+  <!-- Entities -->
+  <g transform="translate(30 45)">
+    <rect class="entity" width="260" height="216" rx="10"/><path class="head" d="M10 0h240a10 10 0 0 1 10 10v27H0V10A10 10 0 0 1 10 0z"/>
+    <text class="name" x="14" y="25">User</text>
+    <text class="field" x="14" y="60">PK id: UUID</text><text class="field" x="14" y="81">email: String UNIQUE</text>
+    <text class="field" x="14" y="102">name?: String</text><text class="field" x="14" y="123">username?: String UNIQUE</text>
+    <text class="field" x="14" y="144">passwordHash?: String</text><text class="field" x="14" y="165">role: Role = USER</text>
+    <text class="field" x="14" y="186">image?, description?</text>
+  </g>
+  <g transform="translate(380 45)">
+    <rect class="entity" width="340" height="260" rx="10"/><path class="head" d="M10 0h320a10 10 0 0 1 10 10v27H0V10A10 10 0 0 1 10 0z"/>
+    <text class="name" x="14" y="25">Question</text>
+    <text class="field" x="14" y="60">PK id: UUID</text><text class="field" x="14" y="81">questionNumber: Int (auto)</text>
+    <text class="field" x="14" y="102">title?, description?</text><text class="field" x="14" y="123">difficulty: String</text>
+    <text class="field" x="14" y="144">topics: String[]</text><text class="field" x="14" y="165">examples?, constraints?: Json</text>
+    <text class="field" x="14" y="186">expectedTC?, expectedSC?: String</text><text class="field" x="14" y="207">FK createdById: UUID</text>
+  </g>
+  <g transform="translate(855 45)">
+    <rect class="entity" width="340" height="198" rx="10"/><path class="head" d="M10 0h320a10 10 0 0 1 10 10v27H0V10A10 10 0 0 1 10 0z"/>
+    <text class="name" x="14" y="25">TestCase</text>
+    <text class="field" x="14" y="60">PK id: UUID</text><text class="field" x="14" y="81">FK questionId: UUID</text>
+    <text class="field" x="14" y="102">isSample: Boolean</text><text class="field" x="14" y="123">input, expectedOutput: Text</text>
+  </g>
+  <g transform="translate(855 280)">
+    <rect class="entity" width="340" height="150" rx="10"/><path class="head" d="M10 0h320a10 10 0 0 1 10 10v27H0V10A10 10 0 0 1 10 0z"/>
+    <text class="name" x="14" y="25">OptimalSolution</text>
+    <text class="field" x="14" y="60">PK id: UUID</text><text class="field" x="14" y="81">FK questionId: UUID</text>
+    <text class="field" x="14" y="102">language: String</text><text class="field" x="14" y="123">code: Text</text>
+  </g>
+  <g transform="translate(380 370)">
+    <rect class="entity" width="280" height="150" rx="10"/><path class="head" d="M10 0h260a10 10 0 0 1 10 10v27H0V10A10 10 0 0 1 10 0z"/>
+    <text class="name" x="14" y="25">Hint</text>
+    <text class="field" x="14" y="60">PK id: UUID</text><text class="field" x="14" y="81">FK questionId: UUID</text>
+    <text class="field" x="14" y="102">hintOrder: Int</text><text class="field" x="14" y="123">content?: Text</text>
+  </g>
+  <g transform="translate(380 600)">
+    <rect class="entity" width="340" height="198" rx="10"/><path class="head" d="M10 0h320a10 10 0 0 1 10 10v27H0V10A10 10 0 0 1 10 0z"/>
+    <text class="name" x="14" y="25">Session (assessment)</text>
+    <text class="field" x="14" y="60">PK id: UUID</text><text class="field" x="14" y="81">FK userId, questionId: UUID</text>
+    <text class="field" x="14" y="102">monitoringMode: String = NORMAL</text><text class="field" x="14" y="123">violationCount: Int = 0</text>
+    <text class="field" x="14" y="144">completedAt?, terminationReason?</text><text class="field" x="14" y="165">adminTestMode: Boolean = false</text>
+  </g>
+  <g transform="translate(30 385)">
+    <rect class="entity" width="270" height="150" rx="10"/><path class="head" d="M10 0h250a10 10 0 0 1 10 10v27H0V10A10 10 0 0 1 10 0z"/>
+    <text class="name" x="14" y="25">SessionHintView</text>
+    <text class="field" x="14" y="60">PK id: UUID</text><text class="field" x="14" y="81">FK sessionId: UUID</text>
+    <text class="field" x="14" y="102">FK hintId: UUID</text>
+  </g>
+  <g transform="translate(30 635)">
+    <rect class="entity" width="270" height="132" rx="10"/><path class="head" d="M10 0h250a10 10 0 0 1 10 10v27H0V10A10 10 0 0 1 10 0z"/>
+    <text class="name" x="14" y="25">DoubtQuery</text>
+    <text class="field" x="14" y="60">PK id: UUID</text><text class="field" x="14" y="81">FK sessionId: UUID</text>
+    <text class="field" x="14" y="102">queryText: Text</text>
+  </g>
+  <g transform="translate(855 500)">
+    <rect class="entity" width="340" height="150" rx="10"/><path class="head" d="M10 0h320a10 10 0 0 1 10 10v27H0V10A10 10 0 0 1 10 0z"/>
+    <text class="name" x="14" y="25">AssessmentViolation</text>
+    <text class="field" x="14" y="60">PK id: UUID</text><text class="field" x="14" y="81">FK assessmentId: UUID</text>
+    <text class="field" x="14" y="102">type: String</text><text class="field" x="14" y="123">timestamp: DateTime = now()</text>
+  </g>
+  <g transform="translate(855 700)">
+    <rect class="entity" width="340" height="205" rx="10"/><path class="head" d="M10 0h320a10 10 0 0 1 10 10v27H0V10A10 10 0 0 1 10 0z"/>
+    <text class="name" x="14" y="25">Submission</text>
+    <text class="field" x="14" y="60">PK id: UUID</text><text class="field" x="14" y="81">FK sessionId: UUID</text>
+    <text class="field" x="14" y="102">FK userId?, questionId?: UUID</text><text class="field" x="14" y="123">FK failedTestCaseId?: UUID</text>
+    <text class="field" x="14" y="144">language, status: String</text><text class="field" x="14" y="165">sourceCode?, actualOutput?, errorMessage?</text>
+    <text class="field" x="14" y="186">passedTests, totalTests: Int = 0</text>
+  </g>
+
+  <!-- Foreign-key relationships; 1 on parent, * on child -->
+  <path class="edge" d="M290 145H380"/><text class="edgeText" x="308" y="137">1 : *</text><text class="edgeText" x="308" y="159">createdBy</text>
+  <path class="edge" d="M290 230H335V620H380"/><text class="edgeText" x="306" y="612">1 : *</text>
+  <path class="edge" d="M720 125H855"/><text class="edgeText" x="765" y="117">1 : *</text>
+  <path class="edge" d="M720 250H805V350H855"/><text class="edgeText" x="752" y="275">1 : *</text>
+  <path class="edge" d="M520 305V370"/><text class="edgeText" x="527" y="345">1 : *</text>
+  <path class="edge" d="M690 305V600"/><text class="edgeText" x="697" y="565">1 : *</text>
+  <path class="edge" d="M380 455H300"/><text class="edgeText" x="316" y="447">1 : *</text>
+  <path class="edge" d="M380 625H335V480H300"/><text class="edgeText" x="307" y="575">1 : *</text>
+  <path class="edge" d="M465 798V835H300V735"/><text class="edgeText" x="310" y="820">1 : *</text>
+  <path class="edge" d="M720 680H790V575H855"/><text class="edgeText" x="740" y="665">1 : *</text>
+  <path class="edge" d="M720 735H790V790H855"/><text class="edgeText" x="742" y="724">1 : *</text>
+  <path class="edge" d="M290 205H330V860H855"/><text class="edgeText" x="315" y="850">1 : * (optional FK)</text>
+  <path class="edge" d="M720 190H760V890H855"/><text class="edgeText" x="739" y="875">1 : * (optional FK)</text>
+  <path class="edge" d="M1195 200H1225V790H1195"/><text class="edgeText" x="1199" y="490">1 : *</text>
+
+  <text class="note" x="30" y="885">PK = primary key; FK = foreign key; ? = nullable. Lines show one-to-many foreign-key relationships.</text>
+</svg>

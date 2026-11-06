@@ -17,10 +17,20 @@
 const sidebars = {
   appSidebar: [
     'overview',
-    'getting-started',
-    {type: 'category', label: 'How the app works', items: ['product-flow', 'features', 'admin-guide']},
-    {type: 'category', label: 'Engineering reference', items: ['architecture', 'ui-architecture', 'data-model', 'api-reference', 'request-lifecycle', 'development']},
-    {type: 'category', label: 'Developer handover', items: ['env-config', 'security', 'testing-debugging']},
+    'technology-stack',
+    'architecture',
+    'project-structure',
+    'database-design',
+    'authentication-authorization',
+    'api-reference',
+    'question-management',
+    'assessment-practice-engine',
+    'secure-assessment-violations',
+    'judge0-code-execution',
+    'duck-insight',
+    'dashboard-progress',
+    'limitations-future-improvements',
+    'environment-configuration',
   ],
 };
 
